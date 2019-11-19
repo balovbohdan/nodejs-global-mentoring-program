@@ -16,6 +16,20 @@ const flushOutputFile = async () => {
   await fs.promises.writeFile(constants.OUTPUT_FILE_PATH);
 };
 
+const checkDataHasHeader = data => {
+  const headerLineRegex = new RegExp(`^${constants.HEADER_LINE}`);
+
+  return headerLineRegex.test(data);
+};
+
+const addHeaderToData = data => {
+  const hasHeader = checkDataHasHeader(data);
+
+  return hasHeader
+    ? data
+    : `${constants.HEADER_LINE}\r\n${data}`;
+};
+
 const createOutputLine = ({ Book, Author, Price }) => {
   const item = {
     book: Book,
@@ -26,39 +40,57 @@ const createOutputLine = ({ Book, Author, Price }) => {
   return JSON.stringify(item) + '\r\n';
 };
 
-const readInput = () =>
-  new Promise((resolve, reject) => {
-    const lines = [];
-    const stream = fs.createReadStream(constants.INPUT_FILE_PATH);
+const createOutputLines = lines => {
+  let response = '';
 
-    stream.on('data', line => lines.push(line));
+  for (let line of lines)
+    response += createOutputLine(line);
 
-    stream.on('close', async () => {
-      const linesString = Buffer.concat(lines).toString();
-      const response = await csv().fromString(linesString);
-
-      resolve(response);
-    });
-  });
-
-const writeOutput = async data => {
-  flushOutputFile();
-  utils.createTmpDir();
-
-  const stream = fs.createWriteStream(constants.OUTPUT_FILE_PATH, {
-    flags: 'a',
-  });
-
-  data.map(async item => {
-    const line = createOutputLine(item);
-
-    stream.write(line);
-  });
-
-  stream.end();
+  return response.trim();
 };
 
+const writeToOutput = async (data, writeStream) => {
+  const lines = createOutputLines(data);
+
+  writeStream.write(lines);
+};
+
+const readInput = ({ onData, onClose }) => {
+  const readStream = fs.createReadStream(constants.INPUT_FILE_PATH);
+
+  readStream.on('close', onClose);
+
+  readStream.on('data', data => {
+    const dataString = data.toString();
+
+    onData(dataString);
+  });
+};
+
+const processInput = () =>
+  new Promise((resolve, reject) => {
+    utils.createTmpDir();
+
+    const writeStream = fs.createWriteStream(constants.OUTPUT_FILE_PATH, {
+      flags: 'a',
+    });
+
+    const onData = async data => {
+      const dataPrepared = addHeaderToData(data);
+      const dataObject = await csv().fromString(dataPrepared);
+
+      writeToOutput(dataObject, writeStream);
+    };
+
+    const onClose = () => {
+      writeStream.close();
+      resolve();
+    };
+
+    readInput({ onData, onClose });
+  });
+
 module.exports = {
-  readInput,
-  writeOutput,
+  processInput,
+  flushOutputFile,
 };
