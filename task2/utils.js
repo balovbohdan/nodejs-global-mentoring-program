@@ -1,11 +1,20 @@
 const fs = require('fs');
 const { csv } = require('csvtojson');
 const readline = require('readline');
+const { pipeline } = require('stream');
 
-const { utils, constants } = require('../shared');
+const { utils } = require('../shared');
+const constants = require('./constants');
 
-const INPUT_FILE_PATH = constants.CSV_DIR_PATH + 'task2.csv';
-const OUTPUT_FILE_PATH = constants.TMP_DIR_PATH + 'task2.txt';
+const checkOutputFileExists = () => fs.existsSync(constants.OUTPUT_FILE_PATH);
+
+const flushOutputFile = async () => {
+  const outputFileExists = checkOutputFileExists();
+
+  if (!outputFileExists) return;
+
+  await fs.promises.writeFile(constants.OUTPUT_FILE_PATH);
+};
 
 const createOutputLine = ({ Book, Author, Price }) => {
   const item = {
@@ -17,38 +26,37 @@ const createOutputLine = ({ Book, Author, Price }) => {
   return JSON.stringify(item) + '\r\n';
 };
 
-const readInputLineByLine = () =>
+const readInput = () =>
   new Promise((resolve, reject) => {
-    let lines = '';
+    const lines = [];
+    const stream = fs.createReadStream(constants.INPUT_FILE_PATH);
 
-    const lineReader = readline.createInterface({
-      input: fs.createReadStream(INPUT_FILE_PATH),
-    });
+    stream.on('data', line => lines.push(line));
 
-    lineReader.on('line', line => lines += line + '\r\n');
-
-    lineReader.on('close', async () => {
-      const linesTrimmed = lines.trim();
-      const response = await csv().fromString(linesTrimmed);
+    stream.on('close', async () => {
+      const linesString = Buffer.concat(lines).toString();
+      const response = await csv().fromString(linesString);
 
       resolve(response);
     });
   });
 
-const writeOutputLineByLine = async data => {
-  const makeTmpDir = utils.createTmpDirMaker();
+const writeOutput = async data => {
+  flushOutputFile();
+  utils.createTmpDir();
 
-  const promises = data.map(async item => {
-    const line = createOutputLine(item);
-
-    await makeTmpDir();
-    await fs.promises.appendFile(OUTPUT_FILE_PATH, line);
+  const stream = fs.createWriteStream(constants.OUTPUT_FILE_PATH, {
+    flags: 'a',
   });
 
-  await Promise.all(promises);
+  data.map(async item => {
+    const line = createOutputLine(item);
+
+    stream.write(line);
+  });
 };
 
 module.exports = {
-  readInputLineByLine,
-  writeOutputLineByLine,
+  readInput,
+  writeOutput,
 };

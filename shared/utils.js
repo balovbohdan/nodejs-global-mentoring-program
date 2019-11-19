@@ -2,18 +2,17 @@ const fs = require('fs');
 
 const constants = require('./constants');
 
-const createTmpDirMaker = () => {
-  let tmpDirCreated = false;
+const checkTmpDirExists = () => fs.existsSync(constants.TMP_DIR_PATH);
 
-  return async () => {
-    if (tmpDirCreated || fs.existsSync(constants.TMP_DIR_PATH)) return;
+const createTmpDir = async () => {
+  const tmpDirExists = checkTmpDirExists();
 
-    tmpDirCreated = true;
+  if (tmpDirExists) return;
 
-    await fs.promises.mkdir(constants.TMP_DIR_PATH);
-  };
+  await fs.promises.mkdir(constants.TMP_DIR_PATH);
 };
 
 module.exports = {
-  createTmpDirMaker,
+  createTmpDir,
+  checkTmpDirExists,
 };
