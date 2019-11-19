@@ -54,6 +54,8 @@ const writeOutput = async data => {
 
     stream.write(line);
   });
+
+  stream.end();
 };
 
 module.exports = {
