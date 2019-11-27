@@ -1,8 +1,8 @@
-const fs = require('fs');
-const { csv } = require('csvtojson');
-const readline = require('readline');
+import fs from 'fs';
+import { csv } from 'csvtojson';
+import readline from 'readline';
 
-const constants = require('./constants');
+import * as constants from './constants';
 
 const checkTmpDirExists = () => fs.existsSync(constants.TMP_DIR_PATH);
 const checkOutputFileExists = () => fs.existsSync(constants.OUTPUT_FILE_PATH);
@@ -15,7 +15,7 @@ const createTmpDir = async () => {
   await fs.promises.mkdir(constants.TMP_DIR_PATH);
 };
 
-const flushOutputFile = async () => {
+export const flushOutputFile = async () => {
   const outputFileExists = checkOutputFileExists();
 
   if (!outputFileExists) return;
@@ -74,7 +74,7 @@ const readInput = ({ onData, onClose }) => {
   });
 };
 
-const processInput = () =>
+export const processInput = () =>
   new Promise((resolve, reject) => {
     createTmpDir();
 
@@ -96,8 +96,3 @@ const processInput = () =>
 
     readInput({ onData, onClose });
   });
-
-module.exports = {
-  processInput,
-  flushOutputFile,
-};
