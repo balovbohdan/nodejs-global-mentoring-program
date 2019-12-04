@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "task1": "nodemon task1",
+    "task1.additional": "curl -s https://raw.githubusercontent.com/ilyankou/passport-index-dataset/master/passport-index-matrix.csv | node ./task1.additional",
     "task2": "node task2",
     "task3.1": "npm run build-task3.1 & nodemon task3.1/dist",
     "task3.2": "npm run build-task3.2 & node task3.2/dist",
