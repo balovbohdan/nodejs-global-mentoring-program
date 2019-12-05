@@ -5,37 +5,13 @@ import readline from 'readline';
 import * as constants from './constants';
 
 const checkTmpDirExists = () => fs.existsSync(constants.TMP_DIR_PATH);
-const checkOutputFileExists = () => fs.existsSync(constants.OUTPUT_FILE_PATH);
 
-const createTmpDir = async () => {
-  const tmpDirExists = checkTmpDirExists();
-
-  if (tmpDirExists) return;
-
-  await fs.promises.mkdir(constants.TMP_DIR_PATH);
-};
-
-export const flushOutputFile = async () => {
-  const outputFileExists = checkOutputFileExists();
-
-  if (!outputFileExists) return;
-
-  await fs.promises.writeFile(constants.OUTPUT_FILE_PATH);
-};
-
-const checkDataHasHeader = data => {
-  const headerLineRegex = new RegExp(`^${constants.HEADER_LINE}`);
-
-  return headerLineRegex.test(data);
-};
-
-const addHeaderToData = data => {
-  const hasHeader = checkDataHasHeader(data);
-
-  return hasHeader
-    ? data
-    : `${constants.HEADER_LINE}\r\n${data}`;
-};
+const createReadLineInterface = () =>
+  readline.createInterface({
+    input: fs.createReadStream(constants.INPUT_FILE_PATH, {
+      encoding: 'utf8',
+    }),
+  });
 
 const createOutputLine = ({ Book, Author, Price }) => {
   const item = {
@@ -45,54 +21,42 @@ const createOutputLine = ({ Book, Author, Price }) => {
   };
 
   return JSON.stringify(item) + '\r\n';
-};
+  };
 
-const createOutputLines = lines => {
-  let response = '';
-
-  for (let line of lines)
-    response += createOutputLine(line);
-
-  return response.trim();
-};
-
-const writeToOutput = async (data, writeStream) => {
-  const lines = createOutputLines(data);
-
-  writeStream.write(lines);
-};
-
-const readInput = ({ onData, onClose }) => {
-  const readStream = fs.createReadStream(constants.INPUT_FILE_PATH);
-
-  readStream.on('close', onClose);
-
-  readStream.on('data', data => {
-    const dataString = data.toString();
-
-    onData(dataString);
+const createWriteStream = () =>
+  fs.createWriteStream(constants.OUTPUT_FILE_PATH, {
+    flags: 'w',
+    encoding: 'utf8',
   });
+
+const handleLine = async ({ line, headers, writeStream }) => {
+  const lineWithHeaders = `${headers}\r\n${line}`;
+  const [lineParsed] = await csv().fromString(lineWithHeaders);
+  const outputLine = createOutputLine(lineParsed);
+
+  writeStream.write(outputLine);
 };
 
-export const processInput = () =>
-  new Promise((resolve, reject) => {
-    createTmpDir();
+const getHeaders = (readLineInterface, handleLine) =>
+  readLineInterface.once('line', handleLine);
 
-    const writeStream = fs.createWriteStream(constants.OUTPUT_FILE_PATH, {
-      flags: 'a',
+export const createTmpDir = async () => {
+  const tmpDirExists = checkTmpDirExists();
+
+  if (tmpDirExists) return;
+
+  await fs.promises.mkdir(constants.TMP_DIR_PATH);
+};
+
+export const processInput = async () => {
+  const writeStream = createWriteStream();
+  const readLineInterface = createReadLineInterface();
+
+  readLineInterface.on('close', () => writeStream.end());
+
+  getHeaders(readLineInterface, headers => {
+    readLineInterface.on('line', line => {
+      handleLine({ line, headers, writeStream })
     });
-
-    const onData = async data => {
-      const dataPrepared = addHeaderToData(data);
-      const dataObject = await csv().fromString(dataPrepared);
-
-      writeToOutput(dataObject, writeStream);
-    };
-
-    const onClose = () => {
-      writeStream.close();
-      resolve();
-    };
-
-    readInput({ onData, onClose });
   });
+};
