@@ -25,6 +25,7 @@
     "@types/node": "^12.12.21",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/parser": "^2.12.0",
+    "bcrypt": "^3.0.7",
     "eslint": "^6.7.2",
     "nodemon": "^1.19.4",
     "prettier": "^1.19.1",
@@ -32,8 +33,10 @@
     "typescript": "^3.7.3"
   },
   "dependencies": {
-    "express": "^4.17.1",
     "@hapi/joi": "^16.1.8",
+    "express": "^4.17.1",
+    "md5": "^2.2.1",
+    "simple-json-db": "^1.2.1",
     "uuid": "^3.3.3"
   }
 }
