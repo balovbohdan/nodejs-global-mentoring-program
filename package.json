@@ -22,8 +22,7 @@
   },
   "homepage": "https://github.com/balovbohdan/nodejs-global-mentoring-program#readme",
   "dependencies": {
-    "@babel/runtime": "^7.7.4",
-    "csvtojson": "^2.0.10"
+    "@babel/runtime": "^7.7.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
@@ -31,6 +30,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.7.4",
     "@babel/plugin-transform-runtime": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
+    "eslint": "^6.7.2",
     "nodemon": "^1.19.4"
   }
 }
