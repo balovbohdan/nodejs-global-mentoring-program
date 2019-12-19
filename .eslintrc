@@ -321,7 +321,8 @@
       2,
       7
     ],
-    "no-bitwise": 2
+    "no-bitwise": 2,
+    "@typescript-eslint/explicit-function-return-type": "off"
   },
   "globals": {
     "$": true,
