@@ -8,5 +8,6 @@ app.use(express.json());
 
 app.get('/user/:id', routes.user.get);
 app.post('/create-user', routes.user.create);
+app.post('/update-user', routes.user.update);
 
 app.listen(3000);

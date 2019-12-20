@@ -5,12 +5,22 @@ import { T } from '.';
 import { db } from '../db';
 
 export const getUser = async (id: string): Promise<T.User|null> => {
-    const user = db.get(id);
+    const dbResponse: string = await db.get(id);
 
-    return user || null;
+    if (!dbResponse) {
+        return null;
+    }
+
+    const user: T.UserRaw = JSON.parse(dbResponse);
+
+    return user.isDeleted ? null : {
+        id: user.id,
+        age: user.age,
+        login: user.login
+    };
 };
 
-export const createUser = async (user: T.UserInput): Promise<string> => {
+export const createUser = async (user: T.CreateUserInput): Promise<string> => {
     const meta = {
         id: v4(),
         password: md5(user.password)
@@ -22,4 +32,29 @@ export const createUser = async (user: T.UserInput): Promise<string> => {
     await db.set(meta.id, userSerialized);
 
     return meta.id;
+};
+
+export const updateUser = async (user: T.UpdateUserInput): Promise<T.User> => {
+    const dbResponse: string = await db.get(user.id);
+    const userInDb: T.UserRaw = JSON.parse(dbResponse);
+
+    if (!userInDb) {
+        throw new Error(`Failed to update user ${user.id}.`);
+    }
+
+    const userUpdated: T.UpdateUserInput = {
+        ...userInDb,
+        ...user,
+        password: user.password
+            ? md5(user.password)
+            : userInDb.password
+    };
+
+    await db.set(user.id, JSON.stringify(userUpdated));
+
+    return {
+        id: userUpdated.id,
+        age: userUpdated.age,
+        login: userUpdated.login
+    } as T.User;
 };

@@ -1,5 +1,3 @@
-// curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"age":10,"login":"login","password":"password"}' http://localhost:3000/create-user
-
 import * as Joi from '@hapi/joi';
 
 import model from '../../model';

@@ -1,5 +1,3 @@
-// curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:3000/user/<id>
-
 import * as Joi from '@hapi/joi';
 
 import model from '../../model';
