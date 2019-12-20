@@ -20,3 +20,8 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" http:/
 ```bash
 curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/update-user
 ```
+
+**Delete user**
+```bash
+curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/delete-user/<id>
+```

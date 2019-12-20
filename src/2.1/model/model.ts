@@ -34,6 +34,22 @@ export const createUser = async (user: T.CreateUserInput): Promise<string> => {
     return meta.id;
 };
 
+export const deleteUser = async (id: string): Promise<void> => {
+    const dbResponse: string = await db.get(id);
+    const userInDb: T.UserRaw = JSON.parse(dbResponse);
+
+    if (!userInDb) {
+        throw new Error(`Failed to delete user ${id}.`);
+    }
+
+    const userUpdated: T.UserRaw = {
+        ...userInDb,
+        isDeleted: true
+    };
+
+    await db.set(id, JSON.stringify(userUpdated));
+};
+
 export const updateUser = async (user: T.UpdateUserInput): Promise<T.User> => {
     const dbResponse: string = await db.get(user.id);
     const userInDb: T.UserRaw = JSON.parse(dbResponse);
@@ -42,7 +58,7 @@ export const updateUser = async (user: T.UpdateUserInput): Promise<T.User> => {
         throw new Error(`Failed to update user ${user.id}.`);
     }
 
-    const userUpdated: T.UpdateUserInput = {
+    const userUpdated: T.UserRaw = {
         ...userInDb,
         ...user,
         password: user.password
