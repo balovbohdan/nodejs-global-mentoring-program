@@ -11,4 +11,6 @@ app.post('/create-user', routes.user.create);
 app.post('/update-user', routes.user.update);
 app.delete('/delete-user/:id', routes.user.del);
 
+app.post('/auto-suggested-users', routes.users.getAutoSuggested);
+
 app.listen(3000);

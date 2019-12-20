@@ -74,3 +74,16 @@ export const updateUser = async (user: T.UpdateUserInput): Promise<T.User> => {
         login: userUpdated.login
     } as T.User;
 };
+
+export const getAutoSuggestedUsers = async ({ limit, loginSubstring }:
+    T.AutoSuggestedUsersInput) => {
+    const dbResponse = await db.JSON();
+    const users = Object.values(dbResponse)
+        .map(user => JSON.parse(user as string));
+    const loginSubstringRegExp = loginSubstring && new RegExp(`.*${loginSubstring}.*`, 'i');
+    const usersFiltered = loginSubstringRegExp ? (
+        users.filter(user => loginSubstringRegExp.test(user.login))
+    ) : users;
+
+    return usersFiltered.slice(0, limit + 1);
+};

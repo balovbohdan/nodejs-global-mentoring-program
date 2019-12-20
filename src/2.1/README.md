@@ -16,6 +16,11 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data
 curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:3000/user/<id>
 ```
 
+**Get auto-suggested users**
+```bash
+
+```
+
 **Update user**
 ```bash
 curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/update-user
