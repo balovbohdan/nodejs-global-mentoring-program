@@ -14,9 +14,13 @@ const schema = Joi.object({
     password: Joi.string().required()
 });
 
-export const create = async (req, res) => {
-    const { age, login, password }: Body = await schema.validateAsync(req.body);
-    const userId = await model.createUser({ age, login, password });
+export const create = async (req, res, next) => {
+    try {
+        const { age, login, password }: Body = await schema.validateAsync(req.body);
+        const userId = await model.createUser({ age, login, password });
 
-    res.send({ userId });
+        res.send({ userId });
+    } catch (error) {
+        return next(error);
+    }
 };

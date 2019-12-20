@@ -10,9 +10,13 @@ const schema = Joi.object({
     id: Joi.string().required()
 });
 
-export const get = async (req, res) => {
-    const { id }: Params = await schema.validateAsync(req.params);
-    const user = await model.getUser(id);
+export const get = async (req, res, next) => {
+    try {
+        const { id }: Params = await schema.validateAsync(req.params);
+        const user = await model.getUser(id);
 
-    res.send(user);
+        res.send(user);
+    } catch (error) {
+        return next(error);
+    }
 };

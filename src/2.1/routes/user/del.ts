@@ -10,10 +10,14 @@ const schema = Joi.object({
     id: Joi.string().required()
 });
 
-export const del = async (req, res) => {
-    const { id }: Params = await schema.validateAsync(req.params);
+export const del = async (req, res, next) => {
+    try {
+        const { id }: Params = await schema.validateAsync(req.params);
 
-    await model.deleteUser(id);
+        await model.deleteUser(id);
 
-    res.end();
+        res.end();
+    } catch (error) {
+        return next(error);
+    }
 };

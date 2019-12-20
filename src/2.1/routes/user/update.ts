@@ -16,15 +16,19 @@ const schema = Joi.object({
     password: Joi.string()
 });
 
-export const update = async (req, res) => {
-    const body: Body = await schema.validateAsync(req.body);
-    const { id, age, login, password } = body;
-    const userUpdated = await model.updateUser({
-        id,
-        age,
-        login,
-        password
-    });
+export const update = async (req, res, next) => {
+    try {
+        const body: Body = await schema.validateAsync(req.body);
+        const { id, age, login, password } = body;
+        const userUpdated = await model.updateUser({
+            id,
+            age,
+            login,
+            password
+        });
 
-    res.send(userUpdated);
+        res.send(userUpdated);
+    } catch (error) {
+        return next(error);
+    }
 };
