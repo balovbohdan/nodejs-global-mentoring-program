@@ -23,7 +23,7 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" http:/
 
 **Get auto-suggested users**
 ```bash
-
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"limit":10,"loginSubstring":"login"}' http://localhost:3000/auto-suggested-users
 ```
 
 **Update user**

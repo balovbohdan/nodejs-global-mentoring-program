@@ -13,7 +13,7 @@ npm i && npm run start-mac2.2
 ### Commands
 **Create user**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"age":10,"login":"login","password":"password"}' http://localhost:3000/create-user
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"age":10,"login":"login@login.com","password":"password42342"}' http://localhost:3000/create-user
 ```
 
 **Get user**
@@ -23,7 +23,7 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" http:/
 
 **Get auto-suggested users**
 ```bash
-
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"limit":10,"loginSubstring":"login"}' http://localhost:3000/auto-suggested-users
 ```
 
 **Update user**

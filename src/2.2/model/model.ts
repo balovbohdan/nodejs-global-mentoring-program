@@ -81,7 +81,11 @@ export const getAutoSuggestedUsers = async ({ limit, loginSubstring }:
     T.AutoSuggestedUsersInput) => {
     const dbResponse = await db.JSON();
     const users = Object.values(dbResponse)
-        .map(user => JSON.parse(user as string));
+        .map(user => {
+            const { id, age, login } = JSON.parse(user as string);
+
+            return { id, age, login };
+        });
     const loginSubstringRegExp = loginSubstring && new RegExp(`.*${loginSubstring}.*`, 'i');
     const usersFiltered = loginSubstringRegExp ? (
         users.filter(user => loginSubstringRegExp.test(user.login))

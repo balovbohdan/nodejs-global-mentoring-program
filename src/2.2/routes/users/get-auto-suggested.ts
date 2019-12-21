@@ -1,4 +1,5 @@
 import * as Joi from '@hapi/joi';
+import { createValidator } from 'express-joi-validation';
 
 import model from '../../model';
 
@@ -12,13 +13,23 @@ const schema = Joi.object({
     loginSubstring: Joi.string()
 });
 
-export const getAutoSuggested = async (req, res, next) => {
+const validator = createValidator();
+
+const handle = async (req, res, next) => {
     try {
-        const { limit, loginSubstring }: Body = await schema.validateAsync(req.body);
-        const users = await model.getAutoSuggestedUsers({ limit, loginSubstring });
+        const { limit, loginSubstring }: Body = req.body;
+        const users = await model.getAutoSuggestedUsers({
+            limit,
+            loginSubstring
+        });
 
         res.send(users);
     } catch (error) {
         return next(error);
     }
 };
+
+export const getAutoSuggested = [
+    validator.body(schema),
+    handle
+];

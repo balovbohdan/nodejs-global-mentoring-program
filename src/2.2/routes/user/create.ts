@@ -1,4 +1,5 @@
 import * as Joi from '@hapi/joi';
+import { createValidator } from 'express-joi-validation';
 
 import model from '../../model';
 import * as schemaParts from '../schema-parts';
@@ -15,9 +16,11 @@ const schema = Joi.object({
     password: schemaParts.password().required()
 });
 
-export const create = async (req, res, next) => {
+const validator = createValidator();
+
+const handle = async (req, res, next) => {
     try {
-        const { age, login, password }: Body = await schema.validateAsync(req.body);
+        const { age, login, password }: Body = req.body;
         const userId = await model.createUser({ age, login, password });
 
         res.send({ userId });
@@ -25,3 +28,8 @@ export const create = async (req, res, next) => {
         return next(error);
     }
 };
+
+export const create = [
+    validator.body(schema),
+    handle
+];
