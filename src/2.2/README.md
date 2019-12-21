@@ -3,11 +3,11 @@
 ### Launch
 **If you are Windows user**
 ```bash
-npm i && npm run start2.1
+npm i && npm run start2.2
 ```
 **If you are Mac user**
 ```bash
-npm i && npm run start-mac2.1
+npm i && npm run start-mac2.2
 ```
 
 ### Commands

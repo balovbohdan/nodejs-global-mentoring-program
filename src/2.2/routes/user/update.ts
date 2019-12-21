@@ -1,6 +1,7 @@
 import * as Joi from '@hapi/joi';
 
 import model from '../../model';
+import * as schemaParts from '../schema-parts';
 
 type Body = {
     id: string;
@@ -10,10 +11,10 @@ type Body = {
 };
 
 const schema = Joi.object({
-    id: Joi.string().required(),
-    login: Joi.string(),
-    password: Joi.string(),
-    age: Joi.number().integer()
+    age: schemaParts.age(),
+    login: schemaParts.login(),
+    id: schemaParts.id().required(),
+    password: schemaParts.password()
 });
 
 export const update = async (req, res, next) => {

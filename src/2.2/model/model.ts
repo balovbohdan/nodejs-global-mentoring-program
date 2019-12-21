@@ -1,7 +1,7 @@
 import * as md5 from 'md5';
 import { v4 } from 'uuid';
 
-import { T } from '.';
+import { T } from './index';
 import { db } from '../db';
 
 export const getUser = async (id: string): Promise<T.User|null> => {

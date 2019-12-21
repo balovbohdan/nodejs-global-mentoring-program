@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start2.1": "nodemon --watch src/2.1/**/*.ts --ext ts --exec ts-node src/2.1",
-    "start2.2": "nodemon --watch src/2.2/**/*.ts --ext ts --exec ts-node src/2.2"
+    "start2.2": "nodemon --watch src/2.2/**/*.ts --ext ts --exec ts-node src/2.2",
+    "start-mac2.1": "nodemon --watch 'src/2.1/**/*.ts' --ext 'ts' --exec 'ts-node src/2.1'",
+    "start-mac2.2": "nodemon --watch 'src/2.2/**/*.ts' --ext 'ts' --exec 'ts-node src/2.2'"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
   "dependencies": {
     "@hapi/joi": "^16.1.8",
     "express": "^4.17.1",
+    "express-joi-validation": "^4.0.3",
     "md5": "^2.2.1",
     "simple-json-db": "^1.2.1",
     "uuid": "^3.3.3"
