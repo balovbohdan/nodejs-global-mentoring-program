@@ -24,6 +24,6 @@ const initializeDB = async () => {
     console.log('DB was initialized.');
 };
 
-export const initialize = async () => {
-    await initializeDB();
+export const initialize = () => {
+    initializeDB();
 };
