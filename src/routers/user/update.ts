@@ -24,7 +24,7 @@ const handle = async (req, res, next) => {
     try {
         const body: Body = req.body;
         const { id, age, login, password } = body;
-        const userUpdated = await model.updateUser({
+        const userUpdated = await model.user.update({
             id,
             age,
             login,

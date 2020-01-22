@@ -1,4 +1,4 @@
-import { User } from '../models';
+import { User } from '../model/entities';
 
 const initializeDB = async () => {
     await User.sync({
@@ -24,6 +24,6 @@ const initializeDB = async () => {
     console.log('DB was initialized.');
 };
 
-export const initialize = () => {
-    initializeDB();
+export const initialize = async () => {
+    await initializeDB();
 };

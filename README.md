@@ -1,13 +1,11 @@
-# Task 2.1
-
 ### Launch
 **If you are Windows user**
 ```bash
-npm i && npm run start2.2
+npm i && npm run start
 ```
 **If you are Mac user**
 ```bash
-npm i && npm run start-mac2.2
+npm i && npm run start-mac
 ```
 
 ### Commands

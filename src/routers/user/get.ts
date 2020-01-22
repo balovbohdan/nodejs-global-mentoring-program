@@ -17,16 +17,15 @@ const validator = createValidator();
 const handle = async (req, res, next) => {
     try {
         const { id }: Params = req.params;
+        const user = await model.user.get(id);
 
-        await model.deleteUser(id);
-
-        res.end();
+        res.send(user);
     } catch (error) {
         return next(error);
     }
 };
 
-export const del = [
+export const get = [
     validator.params(schema),
     handle
 ];

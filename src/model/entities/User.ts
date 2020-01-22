@@ -3,7 +3,13 @@ import { Model, DataTypes } from 'sequelize';
 
 import { sequelize } from './sequelize';
 
-export class User extends Model {}
+export class User extends Model {
+    id!: string;
+    age!: number;
+    login!: string;
+    password!: string;
+    isDeleted!: boolean;
+}
 
 User.init({
     id: {

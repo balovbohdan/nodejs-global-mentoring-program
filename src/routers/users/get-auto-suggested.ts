@@ -18,7 +18,7 @@ const validator = createValidator();
 const handle = async (req, res, next) => {
     try {
         const { limit, loginSubstring }: Body = req.body;
-        const users = await model.getAutoSuggestedUsers({
+        const users = await model.users.getAutoSuggested({
             limit,
             loginSubstring
         });

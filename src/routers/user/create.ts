@@ -21,7 +21,7 @@ const validator = createValidator();
 const handle = async (req, res, next) => {
     try {
         const { age, login, password }: Body = req.body;
-        const userId = await model.createUser({ age, login, password });
+        const userId = await model.user.create({ age, login, password });
 
         res.send({ userId });
     } catch (error) {

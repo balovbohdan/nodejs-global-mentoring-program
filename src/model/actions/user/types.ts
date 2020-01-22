@@ -1,8 +1,3 @@
-export type AutoSuggestedUsersInput = {
-    limit: number;
-    loginSubstring?: string;
-};
-
 export type UpdateUserInput = {
     id: string;
     age?: number;
