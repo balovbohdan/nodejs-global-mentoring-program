@@ -1,7 +1,7 @@
 import * as md5 from 'md5';
 
 import * as T from './types';
-import { User } from '../../entities';
+import { User } from '../../data-access';
 
 export const get = async (id: string): Promise<T.User|null> => {
     const user = await User.findOne({

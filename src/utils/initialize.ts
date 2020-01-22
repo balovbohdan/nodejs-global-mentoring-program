@@ -1,4 +1,4 @@
-import { User } from '../model/entities';
+import { User } from '../model/data-access';
 
 const initializeDB = async () => {
     await User.sync({
