@@ -1,4 +1,4 @@
 import './server';
-import { initialize } from './utils';
+import { initialize } from './services';
 
 initialize();
