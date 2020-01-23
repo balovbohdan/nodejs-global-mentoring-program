@@ -1,3 +1,5 @@
 import { Sequelize } from 'sequelize';
 
-export const sequelize = new Sequelize('postgres://postgres:1111@localhost:5432/postgres');
+import { config } from '#config';
+
+export const sequelize = new Sequelize(config.model.postgresql.uri);

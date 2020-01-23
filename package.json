@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch src/**/*.ts --ext ts --exec ts-node src",
-    "start-mac": "nodemon --watch 'src/**/*.ts' --ext 'ts' --exec 'ts-node src'"
+    "start": "nodemon --watch src/**/*.ts --ext ts --exec ts-node -r tsconfig-paths/register src",
+    "start-mac": "nodemon --watch 'src/**/*.ts' --ext 'ts' --exec 'ts-node -r tsconfig-paths/register src'"
   },
   "repository": {
     "type": "git",
@@ -32,8 +32,7 @@
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.3",
-    "pg": "^7.17.1",
-    "pg-hstore": "^2.3.3"
+    "tsconfig-paths": "^3.9.0"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.8",
@@ -41,6 +40,8 @@
     "express-joi-validation": "^4.0.3",
     "md5": "^2.2.1",
     "uuid": "^3.3.3",
-    "sequelize": "^5.21.3"
+    "sequelize": "^5.21.3",
+    "pg": "^7.17.1",
+    "pg-hstore": "^2.3.3"
   }
 }
