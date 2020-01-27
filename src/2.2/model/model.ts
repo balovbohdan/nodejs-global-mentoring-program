@@ -84,13 +84,20 @@ export const updateUser = async (user: T.UpdateUserInput): Promise<T.User> => {
 export const getAutoSuggestedUsers = async ({ limit, loginSubstring }:
     T.AutoSuggestedUsersInput) => {
     const dbResponse = await db.JSON();
+
     const users = Object.values(dbResponse)
-        .map(user => {
+        .map((user) => {
             const { id, age, login, isDeleted } = JSON.parse(user as string);
 
-            return isDeleted ? null : { id, age, login };
+            return { id, age, login, isDeleted };
         })
-        .filter(user => !!user);
+        .filter(({ isDeleted }) => !isDeleted)
+        .map(user => ({
+            id: user.id,
+            age: user.age,
+            login: user.login
+        }));
+
     const loginSubstringRegExp = loginSubstring && new RegExp(`.*${loginSubstring}.*`, 'i');
     const usersFiltered = loginSubstringRegExp ? (
         users.filter(user => loginSubstringRegExp.test((user as T.User).login))
