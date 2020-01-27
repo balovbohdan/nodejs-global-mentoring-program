@@ -26,7 +26,11 @@ export const createUser = async (user: T.CreateUserInput): Promise<string> => {
         password: md5(user.password)
     };
     const userDefault = { isDeleted: false };
-    const userPrepared = Object.assign({}, userDefault, user, meta);
+    const userPrepared = {
+        ...userDefault,
+        ...user,
+        ...meta
+    };
     const userSerialized = JSON.stringify(userPrepared);
 
     await db.set(meta.id, userSerialized);
