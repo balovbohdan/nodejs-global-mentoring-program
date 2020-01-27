@@ -98,9 +98,12 @@ export const getAutoSuggestedUsers = async ({ limit, loginSubstring }:
             login: user.login
         }));
 
-    const loginSubstringRegExp = loginSubstring && new RegExp(`.*${loginSubstring}.*`, 'i');
-    const usersFiltered = loginSubstringRegExp ? (
-        users.filter(user => loginSubstringRegExp.test((user as T.User).login))
+    const usersFiltered = loginSubstring ? (
+        users.filter(user => {
+            const loginSubstringIndex = user.login.indexOf(loginSubstring);
+
+            return loginSubstringIndex !== -1;
+        })
     ) : users;
 
     return usersFiltered.slice(0, limit + 1);
