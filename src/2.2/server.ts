@@ -15,9 +15,9 @@ app.use((err, req, res, next) => {
 });
 
 app.get('/user/:id', routes.user.get);
-app.post('/create-user', routes.user.create);
-app.post('/update-user', routes.user.update);
-app.delete('/delete-user/:id', routes.user.del);
+app.put('/user', routes.user.create);
+app.post('/user', routes.user.update);
+app.delete('/user/:id', routes.user.del);
 
 app.post('/auto-suggested-users', routes.users.getAutoSuggested);
 
