@@ -13,7 +13,7 @@ npm i && npm run start-mac2.2
 ### Commands
 **Create user**
 ```bash
-curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"age":10,"login":"login","password":"password"}' http://localhost:3000/user
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"age":10,"login":"login@gmail.com","password":"password123"}' http://localhost:3000/user
 ```
 
 **Get user**
