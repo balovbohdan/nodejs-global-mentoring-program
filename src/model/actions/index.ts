@@ -6,5 +6,5 @@ import { T as TUser } from './user';
 
 export {
     user, TUser,
-    users, TUsers,
+    users, TUsers
 };

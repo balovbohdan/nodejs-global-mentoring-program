@@ -1,7 +1,7 @@
 import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
-import model from '../../model';
+import * as actions from '../../model/actions';
 
 type Body = {
     limit: number;
@@ -18,7 +18,7 @@ const validator = createValidator();
 const handle = async (req, res, next) => {
     try {
         const { limit, loginSubstring }: Body = req.body;
-        const users = await model.users.getAutoSuggested({
+        const users = await actions.users.getAutoSuggested({
             limit,
             loginSubstring
         });

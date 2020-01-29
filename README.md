@@ -11,7 +11,7 @@ npm i && npm run start-mac
 ### Commands
 **Create user**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"age":10,"login":"login@login.com","password":"password42342"}' http://localhost:3000/create-user
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"age":10,"login":"login@gmail.com","password":"password123"}' http://localhost:3000/user
 ```
 
 **Get user**
@@ -26,10 +26,10 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data
 
 **Update user**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/update-user
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/user
 ```
 
 **Delete user**
 ```bash
-curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/delete-user/<id>
+curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/user/<id>
 ```

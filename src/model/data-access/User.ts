@@ -1,5 +1,4 @@
-import { v4 } from 'uuid';
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, UUIDV4 } from 'sequelize';
 
 import { sequelize } from './sequelize';
 
@@ -15,7 +14,7 @@ User.init({
     id: {
         allowNull: false,
         primaryKey: true,
-        defaultValue: v4(),
+        defaultValue: UUIDV4,
         type: DataTypes.UUID
     },
     age: {
