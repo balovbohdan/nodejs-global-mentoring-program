@@ -106,5 +106,5 @@ export const getAutoSuggestedUsers = async ({ limit, loginSubstring }:
         })
     ) : users;
 
-    return usersFiltered.slice(0, limit + 1);
+    return usersFiltered.slice(0, limit);
 };
