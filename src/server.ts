@@ -14,15 +14,20 @@ app.use((err, req, res, next) => {
     }
 });
 
-app.get('/user/:id', routers.user.get);
-app.put('/user', routers.user.create);
-app.post('/user', routers.user.update);
-app.delete('/user/:id', routers.user.del);
+app
+    .get('/user/:id', routers.user.get)
+    .put('/user', routers.user.create)
+    .post('/user', routers.user.update)
+    .delete('/user/:id', routers.user.del);
 
 app.post('/auto-suggested-users', routers.users.getAutoSuggested);
 
-app.get('/group/:id', routers.group.get);
-app.put('/group', routers.group.create);
-app.delete('/group/:id', routers.group.del);
+app
+    .get('/group/:id', routers.group.get)
+    .put('/group', routers.group.create)
+    .post('/group', routers.group.update)
+    .delete('/group/:id', routers.group.del);
+
+app.post('/groups', routers.groups.get);
 
 app.listen(3000);

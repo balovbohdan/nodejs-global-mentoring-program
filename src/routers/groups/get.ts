@@ -1,32 +1,30 @@
 import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
-import groupActions from '#model/actions/group';
+import groupsActions from '#model/actions/groups';
 
-import schemaParts from '../schema-parts/group';
-
-type Params = {
-    id: string;
+type Body = {
+    limit?: number;
 };
 
 const schema = Joi.object({
-    id: schemaParts.id().required()
+    limit: Joi.number().integer()
 });
 
 const validator = createValidator();
 
 const handle = async (req, res, next) => {
     try {
-        const { id }: Params = req.params;
-        const group = await groupActions.get(id);
+        const { limit }: Body = req.body;
+        const groups = await groupsActions.get({ limit });
 
-        res.send(group);
+        res.send(groups);
     } catch (error) {
         return next(error);
     }
 };
 
 export const get = [
-    validator.params(schema),
+    validator.body(schema),
     handle
 ];

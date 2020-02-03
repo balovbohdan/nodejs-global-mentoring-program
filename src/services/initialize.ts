@@ -1,12 +1,15 @@
 import { v4 } from 'uuid';
 
-import { User } from '../model/data-access';
+import { User, Group } from '#model/data-access';
 
-const initializeDB = async () => {
-    await User.sync({
-        force: true
-    });
+const syncTables = async () => {
+    await Promise.all([
+        User.sync({ force: true }),
+        Group.sync({ force: true })
+    ]);
+};
 
+const createDefaultUsers = async () => {
     await User.bulkCreate([
         {
             isDeleted: false,
@@ -22,6 +25,11 @@ const initializeDB = async () => {
             id:'110f07d1-2aa6-4d45-93a5-e3f5a171c4d3'
         }
     ]);
+};
+
+const initializeDB = async () => {
+    await syncTables();
+    await createDefaultUsers();
 };
 
 export const initialize = () => {

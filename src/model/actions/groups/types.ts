@@ -1,4 +1,4 @@
-import { T } from '../../data-access/group';
+import { T } from '#model/data-access/group';
 
 export type Group = {
     name: string;

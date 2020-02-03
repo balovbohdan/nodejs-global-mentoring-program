@@ -41,3 +41,23 @@ curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/user/<i
 ```bash
 curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"name":"test_group","permissions":["READ"]}' http://localhost:3000/group
 ```
+
+**Get group**
+```bash
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:3000/group/<id>
+```
+
+**Get groups**
+```bash
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"limit":10}' http://localhost:3000/groups
+```
+
+**Update group**
+```bash
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/group
+```
+
+**Delete group**
+```bash
+curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/group/<id>
+```
