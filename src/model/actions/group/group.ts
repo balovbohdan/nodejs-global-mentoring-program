@@ -1,7 +1,8 @@
 import { omit } from 'ramda';
 
+import { Group } from '#model/data-access';
+
 import * as T from './types';
-import { Group } from '../../data-access';
 
 const checkExists = async (id: string): Promise<boolean> => {
     const count = await Group.count({

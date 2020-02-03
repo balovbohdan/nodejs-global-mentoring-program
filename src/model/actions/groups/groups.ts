@@ -1,5 +1,6 @@
+import { Group } from '#model/data-access/group';
+
 import * as T from './types';
-import { Group } from '../../data-access/group';
 
 export const get = (input: T.GetGroupsInput = {}): Promise<T.Group[]> => {
     const minLimit = 1;
