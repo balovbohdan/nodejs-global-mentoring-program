@@ -2,7 +2,7 @@ import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
 import * as schemaParts from '../schema-parts';
-import userActions from '../../model/actions/user';
+import groupActions from '../../model/actions/group';
 
 type Params = {
     id: string;
@@ -17,9 +17,9 @@ const validator = createValidator();
 const handle = async (req, res, next) => {
     try {
         const { id }: Params = req.params;
-        const user = await userActions.get(id);
+        const group = await groupActions.get(id);
 
-        res.send(user);
+        res.send(group);
     } catch (error) {
         return next(error);
     }

@@ -1,6 +1,6 @@
 import { Model, DataTypes, UUIDV4 } from 'sequelize';
 
-import { sequelize } from './sequelize';
+import { sequelize } from '../sequelize';
 
 export class User extends Model {
     id!: string;
@@ -15,7 +15,7 @@ User.init({
         allowNull: false,
         primaryKey: true,
         defaultValue: UUIDV4,
-        type: DataTypes.UUID
+        type: DataTypes.UUIDV4
     },
     age: {
         allowNull: true,

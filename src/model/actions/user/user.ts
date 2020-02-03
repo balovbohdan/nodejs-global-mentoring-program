@@ -54,7 +54,7 @@ export const update = async (user: T.UpdateUserInput): Promise<T.User> => {
     });
 
     if (!userInDb) {
-        throw new Error(`Failed to update user ${user.id}.`);
+        throw new Error(`Failed to update user "${user.id}".`);
     }
 
     const userUpdated = {
