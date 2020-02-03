@@ -29,7 +29,8 @@ export const initialize = () => {
         .then(() => {
             console.log('DB was initialized.');
         })
-        .catch(() => {
+        .catch((error) => {
             console.error('Failed to initialize DB.');
+            console.log(error);
         });
 };

@@ -15,7 +15,7 @@ User.init({
         allowNull: false,
         primaryKey: true,
         defaultValue: UUIDV4,
-        type: DataTypes.UUIDV4
+        type: DataTypes.UUID
     },
     age: {
         allowNull: true,
