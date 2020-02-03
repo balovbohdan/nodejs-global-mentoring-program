@@ -30,7 +30,6 @@ export const initialize = () => {
             console.log('DB was initialized.');
         })
         .catch((error) => {
-            console.error('Failed to initialize DB.');
             console.log(error);
         });
 };
