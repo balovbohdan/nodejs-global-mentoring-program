@@ -1,4 +1,4 @@
-### Launch
+# Launch
 **If you are Windows user**
 ```bash
 npm i && npm run start
@@ -8,7 +8,9 @@ npm i && npm run start
 npm i && npm run start-mac
 ```
 
-### Commands
+# Commands
+
+## User(s)
 **Create user**
 ```bash
 curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"age":10,"login":"login@gmail.com","password":"password123"}' http://localhost:3000/user
@@ -32,4 +34,10 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data
 **Delete user**
 ```bash
 curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/user/<id>
+```
+
+## Group(s)
+**Create group**
+```bash
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"name":"test_group","permissions":["READ"]}' http://localhost:3000/group
 ```

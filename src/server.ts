@@ -21,4 +21,8 @@ app.delete('/user/:id', routers.user.del);
 
 app.post('/auto-suggested-users', routers.users.getAutoSuggested);
 
+app.get('/group/:id', routers.group.get);
+app.put('/group', routers.group.create);
+app.delete('/group/:id', routers.group.del);
+
 app.listen(3000);

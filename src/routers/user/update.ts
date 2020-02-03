@@ -2,7 +2,7 @@ import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
 import * as actions from '../../model/actions';
-import * as schemaParts from '../schema-parts';
+import schemaParts from '../schema-parts/user';
 
 type Body = {
     id: string;

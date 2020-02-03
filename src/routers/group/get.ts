@@ -1,7 +1,7 @@
 import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
-import * as schemaParts from '../schema-parts';
+import schemaParts from '../schema-parts/group';
 import groupActions from '../../model/actions/group';
 
 type Params = {

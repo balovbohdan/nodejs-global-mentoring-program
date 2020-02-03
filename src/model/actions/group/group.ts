@@ -18,7 +18,7 @@ export const get = (id: string): Promise<T.Group|null> => (
     })
 );
 
-export const create = async (group: T.CreateGroupInput): Promise<String> => {
+export const create = async (group: T.CreateGroupInput): Promise<string> => {
     const { id } = await Group.create(group);
 
     return id;

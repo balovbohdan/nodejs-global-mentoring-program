@@ -1,8 +1,8 @@
 import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
-import schemaParts from '../schema-parts/user';
-import userActions from '../../model/actions/user';
+import schemaParts from '../schema-parts/group';
+import groupActions from '../../model/actions/group';
 
 type Params = {
     id: string;
@@ -17,15 +17,16 @@ const validator = createValidator();
 const handle = async (req, res, next) => {
     try {
         const { id }: Params = req.params;
-        const user = await userActions.get(id);
 
-        res.send(user);
+        await groupActions.del(id);
+
+        res.end();
     } catch (error) {
         return next(error);
     }
 };
 
-export const get = [
+export const del = [
     validator.params(schema),
     handle
 ];
