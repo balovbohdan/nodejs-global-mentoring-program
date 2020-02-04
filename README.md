@@ -63,7 +63,8 @@ curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/group/<
 ```
 
 ## User Group
-**Add users**
+**Add users to group**
 ```bash
 curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["1","2","3"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
 ```
+Default groups: USER, ADMIN 
