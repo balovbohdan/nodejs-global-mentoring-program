@@ -67,5 +67,5 @@ curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/group/<
 <br>
 _Default groups:_ USER, ADMIN
 ```bash
-curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["1","2","3"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["ba9e8fd2-7cc9-4eb9-9aad-e33069efbecf","ba9e8fd2-7cc9-4eb9-9aad-e33069efbeca"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
 ```
