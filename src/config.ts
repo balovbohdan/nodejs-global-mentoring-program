@@ -4,6 +4,9 @@ export const config = {
             uri: 'postgres://postgres:1111@localhost:5432/postgres'
         }
     },
+    server: {
+        port: 3000
+    },
     entities: {
         user: {
             password: {
