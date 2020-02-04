@@ -26,11 +26,16 @@ const setGroupsHandlers = (app: Express) => {
     app.post('/groups', routers.groups.get);
 };
 
+const setUserGroupHandlers = (app: Express) => {
+    app.put('/user-group/add-users', routers.userGroup.addUsers);
+};
+
 const setEndpointHandlers = (app: Express) => {
     setUserHandlers(app);
     setUsersHandlers(app);
     setGroupHandlers(app);
     setGroupsHandlers(app);
+    setUserGroupHandlers(app);
 };
 
 export default setEndpointHandlers;

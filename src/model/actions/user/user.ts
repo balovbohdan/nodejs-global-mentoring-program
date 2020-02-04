@@ -52,6 +52,8 @@ export const del = async (id: string): Promise<void> => {
             userId: id
         }
     }, transaction);
+
+    await transaction.commit();
 };
 
 export const update = async (user: T.UpdateUserInput): Promise<T.User> => {

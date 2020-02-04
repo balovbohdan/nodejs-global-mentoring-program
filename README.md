@@ -61,3 +61,9 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data
 ```bash
 curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/group/<id>
 ```
+
+## User Group
+**Add users**
+```bash
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["1","2","3"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
+```

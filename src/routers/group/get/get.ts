@@ -6,7 +6,9 @@ import validator from './validator';
 const handle = async (req, res, next) => {
     try {
         const { id }: T.Params = req.params;
-        const group = await groupActions.get(id);
+        const group = await groupActions.get({
+            where: { id }
+        });
 
         res.send(group);
     } catch (error) {

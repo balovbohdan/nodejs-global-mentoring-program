@@ -12,12 +12,14 @@ const checkExists = async (id: string): Promise<boolean> => {
     return count > 0;
 };
 
-export const get = (id: string): Promise<T.Group|null> => (
-    Group.findOne({
-        where: { id },
+export const get = (input: T.GetGroupInput): Promise<T.Group|null> => {
+    const where = input.where as any;
+
+    return Group.findOne({
+        where,
         raw: true
-    })
-);
+    });
+};
 
 export const create = async (group: T.CreateGroupInput): Promise<string> => {
     const { id } = await Group.create(group);
@@ -49,7 +51,11 @@ export const update = async (group: T.UpdateGroupInput): Promise<T.Group> => {
         }
     });
 
-    const updatedGroup = await get(group.id);
+    const updatedGroup = await get({
+        where: {
+            id: group.id
+        }
+    });
 
     if (!updatedGroup) {
         throw new Error('Failed to find updated group.');

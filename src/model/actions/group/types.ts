@@ -6,6 +6,13 @@ export type Group = {
     permissions: T.Permission[];
 };
 
+export type GetGroupInput = {
+    where: {
+        id?: string;
+        name?: T.Group;
+    };
+};
+
 export type CreateGroupInput = {
     name: string;
     permissions: T.Permission[];
