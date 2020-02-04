@@ -7,7 +7,7 @@ import commonSchemaParts from './common';
 const schemaParts = {
     id: commonSchemaParts.id,
     name: () => Joi.string().min(4).max(20),
-    permissions: () => Joi.array().items(...constants.PERMISSIONS)
+    permissions: () => Joi.array().items(...Object.values(constants.PERMISSIONS))
 };
 
 export default schemaParts;

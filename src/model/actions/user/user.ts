@@ -1,7 +1,9 @@
 import { User } from '#model/data-access';
+import * as dataAccessUtils from '#model/data-access/utils';
 
 import * as T from './types';
 import * as utils from './utils';
+import userGroupActions from '../user-group';
 
 export const get = async (id: string): Promise<T.User|null> => {
     const user = await User.findOne({
@@ -39,9 +41,17 @@ export const del = async (id: string): Promise<void> => {
         throw new Error(`Failed to delete user ${id}.`);
     }
 
+    const transaction = await dataAccessUtils.createTransaction();
+
     await user.update({
         isDeleted: true
-    });
+    }, { transaction });
+
+    await userGroupActions.del({
+        where: {
+            userId: id
+        }
+    }, transaction);
 };
 
 export const update = async (user: T.UpdateUserInput): Promise<T.User> => {
@@ -64,7 +74,9 @@ export const update = async (user: T.UpdateUserInput): Promise<T.User> => {
             : userInDb.password
     };
 
-    await userInDb.update(userUpdated);
+    await userInDb.update(userUpdated, {
+
+    });
 
     return {
         id: userInDb.id,
