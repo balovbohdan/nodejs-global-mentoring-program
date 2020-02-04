@@ -51,8 +51,6 @@ export const update = async (group: T.UpdateGroupInput): Promise<T.Group> => {
 
     const updatedGroup = await get(group.id);
 
-    console.log('group.id', group.id, updatedGroup);
-
     if (!updatedGroup) {
         throw new Error('Failed to find updated group.');
     }

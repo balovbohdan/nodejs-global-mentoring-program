@@ -1,7 +1,7 @@
 import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
-import schemaParts from '../../schema-parts/user';
+import schemaParts from '#routers/schema-parts/user';
 
 const schema = Joi.object({
     age: schemaParts.age(),

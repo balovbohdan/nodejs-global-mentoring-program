@@ -22,7 +22,9 @@
 
     "paths": {
       "#config": ["config"],
-      "#model/*": ["model/*"]
+      "#model/*": ["model/*"],
+      "#routers": ["routers"],
+      "#routers/*": ["routers/*"]
     }
   },
   "exclude": [

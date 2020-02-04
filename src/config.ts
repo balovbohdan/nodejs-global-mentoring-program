@@ -3,5 +3,12 @@ export const config = {
         postgresql: {
             uri: 'postgres://postgres:1111@localhost:5432/postgres'
         }
+    },
+    entities: {
+        user: {
+            password: {
+                saltRounds: 4
+            }
+        }
     }
 };

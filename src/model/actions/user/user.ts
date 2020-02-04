@@ -1,8 +1,7 @@
-import * as md5 from 'md5';
-
 import { User } from '#model/data-access';
 
 import * as T from './types';
+import * as utils from './utils';
 
 export const get = async (id: string): Promise<T.User|null> => {
     const user = await User.findOne({
@@ -21,9 +20,8 @@ export const get = async (id: string): Promise<T.User|null> => {
 };
 
 export const create = async (user: T.CreateUserInput): Promise<string> => {
-    const userPrepared = Object.assign({}, user, {
-        password: md5(user.password)
-    });
+    const password = await utils.getPasswordHash(user.password);
+    const userPrepared = { ...user, password };
     const { id } = await User.create(userPrepared);
 
     return id;
@@ -62,7 +60,7 @@ export const update = async (user: T.UpdateUserInput): Promise<T.User> => {
         age: user.age || userInDb.age,
         login: user.login || userInDb.login,
         password: user.password
-            ? md5(user.password)
+            ? await utils.getPasswordHash(user.password)
             : userInDb.password
     };
 
