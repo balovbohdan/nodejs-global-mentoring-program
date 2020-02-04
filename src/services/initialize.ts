@@ -1,11 +1,12 @@
 import { v4 } from 'uuid';
 
-import { User, Group } from '#model/data-access';
+import { User, Group, UserGroup } from '#model/data-access';
 
 const syncTables = async () => {
     await Promise.all([
         User.sync({ force: true }),
-        Group.sync({ force: true })
+        Group.sync({ force: true }),
+        UserGroup.sync({ force: true })
     ]);
 };
 
