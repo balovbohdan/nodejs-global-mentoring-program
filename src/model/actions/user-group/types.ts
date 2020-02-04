@@ -1,4 +1,4 @@
-export type DelUserGroupInput = {
+export type DeleteUserGroupInput = {
     where?: {
         id?: string;
         userId?: string;
