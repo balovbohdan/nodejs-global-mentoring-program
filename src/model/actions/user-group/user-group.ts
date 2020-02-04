@@ -1,7 +1,6 @@
 import { Transaction } from 'sequelize';
 
 import { UserGroup } from '#model/data-access';
-import * as dataAccessUtils from '#model/data-access/utils';
 
 import * as T from './types';
 import groupActions from '../group';
