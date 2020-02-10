@@ -4,11 +4,9 @@ import { config } from '#config';
 
 import setHandlers from './set-handlers';
 
-const startServer = () => {
+export const startServer = () => {
     const app = express();
 
     setHandlers(app);
     app.listen(config.server.port);
 };
-
-export default startServer;

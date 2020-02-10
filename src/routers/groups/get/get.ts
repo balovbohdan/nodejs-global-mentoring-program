@@ -1,4 +1,4 @@
-import groupsActions from '#model/actions/groups';
+import groupsService from '#services/groups';
 
 import * as T from './types';
 import validator from './validator';
@@ -6,7 +6,7 @@ import validator from './validator';
 const handle = async (req, res, next) => {
     try {
         const { limit }: T.Body = req.body;
-        const groups = await groupsActions.get({ limit });
+        const groups = await groupsService.get({ limit });
 
         res.send(groups);
     } catch (error) {

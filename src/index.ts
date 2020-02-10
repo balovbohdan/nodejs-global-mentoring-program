@@ -1,5 +1,3 @@
-import { initialize } from './services';
-import { startServer } from './services';
+import { initialize } from './initializer';
 
-startServer();
 initialize();

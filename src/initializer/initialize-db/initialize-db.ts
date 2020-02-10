@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 
-import { User, Group, UserGroup } from '#model/data-access';
-import * as groupConstants from '#model/data-access/group/constants';
+import { User, Group, UserGroup } from '#models';
+import * as groupConstants from '#models/group/constants';
 
 const syncTables = async () => {
     await Promise.all([
@@ -54,7 +54,7 @@ const initializeDB = async () => {
     ]);
 };
 
-export const initialize = () => {
+export const initializeDb = () => {
     initializeDB()
         .then(() => {
             console.log('DB was initialized.');

@@ -1,4 +1,4 @@
-import groupActions from '#model/actions/group';
+import groupService from '#services/group';
 
 import * as T from './types';
 import validator from './validator';
@@ -6,7 +6,7 @@ import validator from './validator';
 const handle = async (req, res, next) => {
     try {
         const { id }: T.Params = req.params;
-        const group = await groupActions.get({
+        const group = await groupService.get({
             where: { id }
         });
 

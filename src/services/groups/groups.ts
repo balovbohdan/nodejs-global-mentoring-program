@@ -1,4 +1,4 @@
-import { Group } from '#model/data-access/group';
+import { Group } from '#models/group';
 
 import * as T from './types';
 

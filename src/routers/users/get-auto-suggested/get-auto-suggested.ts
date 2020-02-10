@@ -1,4 +1,4 @@
-import usersActions from '#model/actions/users';
+import usersService from '#services/users';
 
 import * as T from './types';
 import validator from './validator';
@@ -6,7 +6,7 @@ import validator from './validator';
 const handle = async (req, res, next) => {
     try {
         const { limit, loginSubstring }: T.Body = req.body;
-        const users = await usersActions.getAutoSuggested({
+        const users = await usersService.getAutoSuggested({
             limit,
             loginSubstring
         });

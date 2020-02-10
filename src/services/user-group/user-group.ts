@@ -1,9 +1,9 @@
 import { Transaction } from 'sequelize';
 
-import { UserGroup } from '#model/data-access';
+import { UserGroup } from '#models';
 
 import * as T from './types';
-import groupActions from '../group';
+import groupService from '../group';
 
 export const del = async (input: T.DeleteUserGroupInput, transaction?: Transaction): Promise<void> => {
     const where = input.where as any;
@@ -15,7 +15,7 @@ export const del = async (input: T.DeleteUserGroupInput, transaction?: Transacti
 };
 
 export const addUsers = async (input: T.AddUsersInput): Promise<void> => {
-    const group = await groupActions.get({
+    const group = await groupService.get({
         where: {
             name: input.group
         }

@@ -1,6 +1,6 @@
 import * as Joi from '@hapi/joi';
 
-import { constants } from '#model/data-access/group';
+import { constants } from '#models/group';
 
 import commonSchemaParts from './common';
 

@@ -1,6 +1,6 @@
 import { Op } from 'sequelize';
 
-import { User } from '#model/data-access';
+import { User } from '#models';
 
 import * as T from './types';
 

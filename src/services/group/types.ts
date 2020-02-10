@@ -1,4 +1,4 @@
-import { T } from '#model/data-access/group';
+import { T } from '#models/group';
 
 export type Group = {
     id: string;

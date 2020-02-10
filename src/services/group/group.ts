@@ -1,6 +1,6 @@
 import { omit } from 'ramda';
 
-import { Group } from '#model/data-access';
+import { Group } from '#models';
 
 import * as T from './types';
 
