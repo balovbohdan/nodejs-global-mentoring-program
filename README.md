@@ -33,3 +33,23 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data
 ```bash
 curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/user/<id>
 ```
+# SQL
+
+## Create "users" table and fill it up
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE users (
+  id UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  isDeleted BOOLEAN NOT NULL DEFAULT false,
+  login VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  age SMALLINT DEFAULT NULL
+);
+
+INSERT INTO
+  users (id, isDeleted, login, password, age)
+VALUES
+  (uuid_generate_v4(), false, 'new_login', 'password111', 10),
+  (uuid_generate_v4(), false, 'password222', 'password222', 15);
+```
