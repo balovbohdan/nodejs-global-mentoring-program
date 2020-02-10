@@ -25,5 +25,5 @@ UserGroup.init({
     }
 }, {
     sequelize,
-    modelName: 'user-group'
+    modelName: 'user_group'
 });

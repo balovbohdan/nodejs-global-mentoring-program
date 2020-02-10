@@ -69,3 +69,52 @@ _Default groups:_ USER, ADMIN
 ```bash
 curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["ba9e8fd2-7cc9-4eb9-9aad-e33069efbecf","ba9e8fd2-7cc9-4eb9-9aad-e33069efbeca"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
 ```
+
+# SQL
+
+## Create "user_groups" table
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE user_groups (
+  id UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  userId UUID NOT NULL,
+  groupId UUID NOT NULL
+);
+```
+
+## Create "users" table and fill it up
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE users (
+  id UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  isDeleted BOOLEAN NOT NULL DEFAULT false,
+  login VARCHAR(100) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  age SMALLINT DEFAULT NULL
+);
+
+INSERT INTO
+  users (id, isDeleted, login, password, age)
+VALUES
+  (uuid_generate_v4(), false, 'new_login', 'password111', 10),
+  (uuid_generate_v4(), false, 'password222', 'password222', 15);
+```
+
+## Create "groups" table and fill it up
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE groups (
+  id UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name VARCHAR(100) NOT NULL,
+  permissions varchar(30)[] NOT NULL
+);
+
+INSERT INTO
+  groups (id, name, permissions)
+VALUES
+  (uuid_generate_v4(), 'ADMIN', ARRAY['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES']),
+  (uuid_generate_v4(), 'READ', ARRAY['READ']);
+```
