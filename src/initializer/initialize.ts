@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-import { User } from '../model/data-access';
+import { User } from '../models';
 
 const initializeDB = async () => {
     await User.sync({

@@ -1,7 +1,8 @@
 import { Op } from 'sequelize';
 
+import { User } from '#models';
+
 import * as T from './types';
-import { User } from '../../data-access';
 
 export const getAutoSuggested = async ({ limit, loginSubstring }:
     T.AutoSuggestedUsersInput): Promise<T.AutoSuggestedUsers> => {
