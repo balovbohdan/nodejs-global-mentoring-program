@@ -1,7 +1,8 @@
 import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
-import model from '../../model';
+import userService from '#services/user';
+
 import * as schemaParts from '../schema-parts';
 
 type Params = {
@@ -18,7 +19,7 @@ const handle = async (req, res, next) => {
     try {
         const { id }: Params = req.params;
 
-        await model.deleteUser(id);
+        await userService.del(id);
 
         res.end();
     } catch (error) {

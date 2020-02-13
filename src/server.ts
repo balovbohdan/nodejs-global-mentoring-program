@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import * as routes from './routes';
+import * as routers from './routers';
 
 const app = express();
 
@@ -14,11 +14,11 @@ app.use((err, req, res, next) => {
     }
 });
 
-app.get('/user/:id', routes.user.get);
-app.put('/user', routes.user.create);
-app.post('/user', routes.user.update);
-app.delete('/user/:id', routes.user.del);
+app.get('/user/:id', routers.user.get);
+app.put('/user', routers.user.create);
+app.post('/user', routers.user.update);
+app.delete('/user/:id', routers.user.del);
 
-app.post('/auto-suggested-users', routes.users.getAutoSuggested);
+app.post('/auto-suggested-users', routers.users.getAutoSuggested);
 
 app.listen(3000);

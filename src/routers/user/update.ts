@@ -1,7 +1,8 @@
 import * as Joi from '@hapi/joi';
 import { createValidator } from 'express-joi-validation';
 
-import model from '../../model';
+import userService from '#services/user';
+
 import * as schemaParts from '../schema-parts';
 
 type Body = {
@@ -24,7 +25,7 @@ const handle = async (req, res, next) => {
     try {
         const body: Body = req.body;
         const { id, age, login, password } = body;
-        const userUpdated = await model.updateUser({
+        const userUpdated = await userService.update({
             id,
             age,
             login,
