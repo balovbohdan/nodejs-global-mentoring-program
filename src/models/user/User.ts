@@ -1,5 +1,7 @@
 import { Model, DataTypes, UUIDV4 } from 'sequelize';
 
+import { Group } from '../group';
+import { UserGroup } from '../user-group';
 import { sequelize } from '../sequelize';
 
 export class User extends Model {
@@ -38,4 +40,10 @@ User.init({
 }, {
     sequelize,
     modelName: 'user'
+});
+
+User.belongsToMany(Group, {
+    through: UserGroup,
+    as: 'groups',
+    foreignKey: 'userId'
 });
