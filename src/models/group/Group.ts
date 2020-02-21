@@ -13,7 +13,7 @@ export class Group extends Model {
     static associate(models) {
         this.association = models.Group.belongsToMany(models.User, {
             through: models.UserGroup,
-            as: 'user',
+            as: 'users',
             foreignKey: 'groupId'
         });
     }

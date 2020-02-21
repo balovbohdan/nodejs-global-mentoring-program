@@ -14,7 +14,7 @@ export class User extends Model {
     static associate(models) {
         this.association = models.User.belongsToMany(models.Group, {
             through: models.UserGroup,
-            as: 'group',
+            as: 'groups',
             foreignKey: 'userId'
         });
     }

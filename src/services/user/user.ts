@@ -1,4 +1,6 @@
-import { User } from '#models';
+import { omit } from 'ramda';
+
+import { User, Group } from '#models';
 import * as modelsUtils from '#models/utils';
 
 import * as T from './types';
@@ -11,14 +13,22 @@ export const get = async (id: string): Promise<T.User|null> => {
             id,
             isDeleted: false
         },
-        raw: true
-    }) as T.UserRaw|null;
+        include: [{
+            model: Group,
+            as: 'groups',
+            required: false,
+            attributes: ['id', 'name', 'permissions'],
+            through: { attributes: [] }
+        }]
+    });
 
-    return user ? {
-        id: user.id,
-        age: user.age,
-        login: user.login
-    } : null;
+    if (!user) {
+        return null;
+    }
+
+    const userRaw = user.get({ plain: true }) as T.UserRaw;
+
+    return omit(['password', 'isDeleted', 'createdAt', 'updatedAt'], userRaw);
 };
 
 export const create = async (user: T.CreateUserInput): Promise<string> => {
