@@ -1,18 +1,29 @@
 import { v4 } from 'uuid';
 
-import { User, Group, UserGroup } from '#models';
+import * as models from '#models';
+import { CustomModel } from '#models/types';
 import * as groupConstants from '#models/group/constants';
+
+const associateTables = () => {
+    const modelClasses = Object.values(models) as CustomModel[];
+
+    modelClasses.forEach((model) => {
+        if (typeof model.associate === 'function') {
+            model.associate(models);
+        }
+    });
+};
 
 const syncTables = async () => {
     await Promise.all([
-        User.sync({ force: true }),
-        Group.sync({ force: true }),
-        UserGroup.sync({ force: true })
+        models.User.sync({ force: true }),
+        models.Group.sync({ force: true }),
+        models.UserGroup.sync({ force: true })
     ]);
 };
 
 const createDefaultUsers = async () => {
-    await User.bulkCreate([
+    await models.User.bulkCreate([
         {
             id: v4(),
             isDeleted: false,
@@ -30,7 +41,7 @@ const createDefaultUsers = async () => {
 };
 
 const createDefaultGroups = async () => {
-    await Group.bulkCreate([
+    await models.Group.bulkCreate([
         {
             id: v4(),
             name: groupConstants.DEFAULT_GROUPS.ADMIN,
@@ -48,6 +59,7 @@ const createDefaultGroups = async () => {
 
 const initializeDB = async () => {
     await syncTables();
+    associateTables();
     await Promise.all([
         createDefaultUsers(),
         createDefaultGroups()

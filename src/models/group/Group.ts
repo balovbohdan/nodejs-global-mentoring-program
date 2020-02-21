@@ -1,4 +1,4 @@
-import { Model, DataTypes, UUIDV4 } from 'sequelize';
+import { Model, Association, DataTypes, UUIDV4 } from 'sequelize';
 
 import * as T from './types';
 import { sequelize } from '../sequelize';
@@ -7,6 +7,16 @@ export class Group extends Model {
     id!: string;
     name!: string;
     permissions!: T.Permission[];
+
+    static association: Association;
+
+    static associate(models) {
+        this.association = models.Group.belongsToMany(models.User, {
+            through: models.UserGroup,
+            as: 'user',
+            foreignKey: 'groupId'
+        });
+    }
 }
 
 Group.init({
