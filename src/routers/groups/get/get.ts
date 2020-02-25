@@ -1,3 +1,4 @@
+import loggers from '#loggers';
 import groupsService from '#services/groups';
 
 import * as T from './types';
@@ -10,6 +11,8 @@ const handle = async (req, res, next) => {
 
         res.send(groups);
     } catch (error) {
+        loggers.routersLogger.error(error.message);
+
         return next(error);
     }
 };

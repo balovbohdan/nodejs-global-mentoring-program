@@ -11,7 +11,7 @@ const handle = async (req, res, next) => {
 
         res.send({ groupId });
     } catch (error) {
-        loggers.routerLogger.error(error.message);
+        loggers.routersLogger.error(error.message);
 
         return next(error);
     }

@@ -1,10 +1,12 @@
+import loggers from '#loggers';
+
 export const setNodeEventListeners = () => {
     // @ts-ignore
-    process.on('uncaughtException', (err, origin) => {
-        console.error(`${err}\nException origin: ${origin}`);
+    process.on('uncaughtException', (error, origin) => {
+        loggers.globalErrorsLogger.fatal(`${error}\nException origin: ${origin}`);
     });
 
     process.on('unhandledRejection', (reason, promise) => {
-        console.error('Unhandled Rejection at:', promise, 'Reason: ', reason);
+        loggers.globalErrorsLogger.error('Unhandled Rejection at:', promise, 'Reason: ', reason);
     });
 };

@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 
+import loggers from '#loggers';
 import * as models from '#models';
 import { CustomModel } from '#models/types';
 import * as groupConstants from '#models/group/constants';
@@ -69,9 +70,9 @@ const initializeDB = async () => {
 export const initializeDb = () => {
     initializeDB()
         .then(() => {
-            console.log('DB was initialized.');
+            loggers.dbLogger.info('DB was initialized.');
         })
         .catch((error) => {
-            console.log(error);
+            loggers.dbLogger.fatal(error.message);
         });
 };
