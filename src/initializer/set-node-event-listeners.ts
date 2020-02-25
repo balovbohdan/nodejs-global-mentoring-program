@@ -3,4 +3,8 @@ export const setNodeEventListeners = () => {
     process.on('uncaughtException', (err, origin) => {
         console.error(`${err}\nException origin: ${origin}`);
     });
+
+    process.on('unhandledRejection', (reason, promise) => {
+        console.error('Unhandled Rejection at:', promise, 'Reason: ', reason);
+    });
 };
