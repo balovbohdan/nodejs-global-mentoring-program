@@ -5,14 +5,18 @@ import * as T from './types';
 import validator from './validator';
 
 const handle = async (req, res, next) => {
-    try {
-        const { id }: T.Params = req.params;
+    const { id }: T.Params = req.params;
 
+    try {
         await groupService.del(id);
 
         res.end();
     } catch (error) {
-        loggers.routersLogger.error(error.message);
+        loggers.routersLogger.error({
+            method: 'groupService.del',
+            message: error.message,
+            args: { id }
+        });
 
         return next(error);
     }

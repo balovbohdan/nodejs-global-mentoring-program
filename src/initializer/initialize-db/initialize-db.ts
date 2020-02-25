@@ -70,7 +70,7 @@ const initializeDB = async () => {
 export const initializeDb = () => {
     initializeDB()
         .then(() => {
-            loggers.dbLogger.info('DB was initialized.');
+            console.log('DB was initialized.');
         })
         .catch((error) => {
             loggers.dbLogger.fatal(error.message);

@@ -1,0 +1,1 @@
+{"name":"routersLogger","hostname":"EPUADNIW0217","pid":16876,"level":50,"method":"userService.create","message":"test error","args":{"age":10,"login":"login@gmail.com","password":"password123"},"msg":"","time":"2020-02-25T10:23:11.740Z","v":0}

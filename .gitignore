@@ -1,7 +1,5 @@
 .idea
 tmp
 dist
+logs.log
 node_modules
-
-src/2.1/db/db-file.json
-src/2.2/db/db-file.json

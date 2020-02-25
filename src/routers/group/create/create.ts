@@ -5,13 +5,18 @@ import * as T from './types';
 import validator from './validator';
 
 const handle = async (req, res, next) => {
+    const { name, permissions }: T.Body = req.body;
+
     try {
-        const { name, permissions }: T.Body = req.body;
         const groupId = await groupService.create({ name, permissions });
 
         res.send({ groupId });
     } catch (error) {
-        loggers.routersLogger.error(error.message);
+        loggers.routersLogger.error({
+            method: groupService.create,
+            message: error.message,
+            args: { name, permissions }
+        });
 
         return next(error);
     }
