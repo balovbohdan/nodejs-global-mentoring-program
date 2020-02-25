@@ -2,10 +2,10 @@ import { omit } from 'ramda';
 
 import { User, Group } from '#models';
 import * as modelsUtils from '#models/utils';
+import userGroupService from '#services/user-group';
 
 import * as T from './types';
 import * as utils from './utils';
-import userGroupService from '../user-group';
 
 export const get = async (id: string): Promise<T.User|null> => {
     const user = await User.findOne({

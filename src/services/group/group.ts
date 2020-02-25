@@ -1,6 +1,8 @@
 import { omit } from 'ramda';
 
 import { Group } from '#models';
+import * as modelsUtils from '#models/utils';
+import userGroupService from '#services/user-group';
 
 import * as T from './types';
 
@@ -31,9 +33,20 @@ export const del = async (id: string): Promise<void> => {
     const exists = checkExists(id);
 
     if (exists) {
+        const transaction = await modelsUtils.createTransaction();
+
         await Group.destroy({
+            transaction,
             where: { id }
         });
+
+        await userGroupService.del({
+            where: {
+                groupId: id
+            }
+        }, transaction);
+
+        await transaction.commit();
     }
 };
 
