@@ -26,7 +26,8 @@
       "#models/*": ["models/*"],
       "#routers": ["routers"],
       "#routers/*": ["routers/*"],
-      "#services/*": ["services/*"]
+      "#services/*": ["services/*"],
+      "#loggers": ["loggers"]
     }
   },
   "exclude": [
