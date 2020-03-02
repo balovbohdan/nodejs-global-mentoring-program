@@ -6,7 +6,7 @@ type Group = {
     permissions: Permission[];
 };
 
-export type VerifyInput = {
+export type VerifyUserInput = {
     login: string;
     password: string;
 };

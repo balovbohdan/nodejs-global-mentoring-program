@@ -7,8 +7,17 @@ import userGroupService from '#services/user-group';
 import * as T from './types';
 import * as utils from './utils';
 
-export const verify = async ({ login, password }: T.VerifyInput) => {
+export const verify = async ({ login, password }: T.VerifyUserInput) => {
+    const user = await User.findOne({
+        where: {
+            login,
+            password: await utils.getPasswordHash(password)
+        }
+    });
 
+    if (!user) {
+        throw new Error(`Failed to verify "${login}" user.`);
+    }
 };
 
 export const get = async (id: string): Promise<T.User|null> => {
