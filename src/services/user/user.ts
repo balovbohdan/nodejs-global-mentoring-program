@@ -7,6 +7,10 @@ import userGroupService from '#services/user-group';
 import * as T from './types';
 import * as utils from './utils';
 
+export const verify = async ({ login, password }: T.VerifyInput) => {
+
+};
+
 export const get = async (id: string): Promise<T.User|null> => {
     const user = await User.findOne({
         where: {
@@ -32,7 +36,6 @@ export const get = async (id: string): Promise<T.User|null> => {
 };
 
 export const create = async (user: T.CreateUserInput): Promise<string> => {
-    throw new Error('test error');
     const password = await utils.getPasswordHash(user.password);
     const userPrepared = { ...user, password };
     const { id } = await User.create(userPrepared);

@@ -6,6 +6,11 @@ type Group = {
     permissions: Permission[];
 };
 
+export type VerifyInput = {
+    login: string;
+    password: string;
+};
+
 export type UpdateUserInput = {
     id: string;
     age?: number;
