@@ -12,12 +12,15 @@ export const verify = async ({ login, password }: T.VerifyUserInput) => {
         where: {
             login,
             password: await utils.getPasswordHash(password)
-        }
+        },
+        raw: true
     });
 
     if (!user) {
         throw new Error(`Failed to verify "${login}" user.`);
     }
+
+    return { id: user.id };
 };
 
 export const get = async (id: string): Promise<T.User|null> => {
