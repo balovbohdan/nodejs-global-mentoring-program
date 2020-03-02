@@ -32,7 +32,6 @@ export const get = async (id: string): Promise<T.User|null> => {
 };
 
 export const create = async (user: T.CreateUserInput): Promise<string> => {
-    throw new Error('test error');
     const password = await utils.getPasswordHash(user.password);
     const userPrepared = { ...user, password };
     const { id } = await User.create(userPrepared);
