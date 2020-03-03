@@ -70,6 +70,12 @@ _Default groups:_ USER, ADMIN
 curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["ba9e8fd2-7cc9-4eb9-9aad-e33069efbecf","ba9e8fd2-7cc9-4eb9-9aad-e33069efbeca"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
 ```
 
+## Authorization
+**Get token**
+```bash
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"login":"login@gmail.com","password":"password123"}' http://localhost:3000/token
+```
+
 # SQL
 
 ## Create "user_groups" table

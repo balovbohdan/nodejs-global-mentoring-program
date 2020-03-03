@@ -26,6 +26,7 @@ export type CreateUserInput = {
 
 export type UserRaw = User & {
     password: string;
+    passwordHash: string;
     isDeleted: boolean;
 }
 
@@ -34,4 +35,10 @@ export type User = {
     age: number;
     login: string;
     groups?: Group[];
+};
+
+export type VerifyPasswordInput = {
+    passwordSalt: string;
+    passwordHash: string;
+    passwordToVerify: string;
 };

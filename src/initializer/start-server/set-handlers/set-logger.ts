@@ -3,7 +3,7 @@ import * as morgan from 'morgan';
 import { Express } from 'express';
 
 const logPayload = (payloadName, payload) => {
-    if (isEmpty(payload)) {
+    if (!payload || isEmpty(payload)) {
         return '';
     }
 

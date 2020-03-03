@@ -9,6 +9,6 @@ const schema = Joi.object({
 });
 
 const validator = createValidator();
-const paramsValidator = validator.params(schema);
+const bodyValidator = validator.body(schema);
 
-export default paramsValidator;
+export default bodyValidator;
