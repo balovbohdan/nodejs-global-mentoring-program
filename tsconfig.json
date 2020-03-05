@@ -24,6 +24,8 @@
       "#config": ["config"],
       "#models": ["models"],
       "#models/*": ["models/*"],
+      "#routers": ["routers"],
+      "#routers/*": ["routers/*"],
       "#services/*": ["services/*"]
     }
   },

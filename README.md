@@ -1,4 +1,4 @@
-### Launch
+# Launch
 **If you are Windows user**
 ```bash
 npm i && npm run start
@@ -8,7 +8,9 @@ npm i && npm run start
 npm i && npm run start-mac
 ```
 
-### Commands
+# Commands
+
+## User(s)
 **Create user**
 ```bash
 curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"age":10,"login":"login@gmail.com","password":"password123"}' http://localhost:3000/user
@@ -33,7 +35,53 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data
 ```bash
 curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/user/<id>
 ```
+
+## Group(s)
+**Create group**
+```bash
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"name":"test_group","permissions":["READ"]}' http://localhost:3000/group
+```
+
+**Get group**
+```bash
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:3000/group/<id>
+```
+
+**Get groups**
+```bash
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"limit":10}' http://localhost:3000/groups
+```
+
+**Update group**
+```bash
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/group
+```
+
+**Delete group**
+```bash
+curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/group/<id>
+```
+
+## User Group
+**Add users to group**
+<br>
+_Default groups:_ USER, ADMIN
+```bash
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["ba9e8fd2-7cc9-4eb9-9aad-e33069efbecf","ba9e8fd2-7cc9-4eb9-9aad-e33069efbeca"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
+```
+
 # SQL
+
+## Create "user_groups" table
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE user_groups (
+  id UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  userId UUID NOT NULL,
+  groupId UUID NOT NULL
+);
+```
 
 ## Create "users" table and fill it up
 ```sql
@@ -52,4 +100,21 @@ INSERT INTO
 VALUES
   (uuid_generate_v4(), false, 'new_login', 'password111', 10),
   (uuid_generate_v4(), false, 'password222', 'password222', 15);
+```
+
+## Create "groups" table and fill it up
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE groups (
+  id UUID NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  name VARCHAR(100) NOT NULL,
+  permissions varchar(30)[] NOT NULL
+);
+
+INSERT INTO
+  groups (id, name, permissions)
+VALUES
+  (uuid_generate_v4(), 'ADMIN', ARRAY['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES']),
+  (uuid_generate_v4(), 'READ', ARRAY['READ']);
 ```

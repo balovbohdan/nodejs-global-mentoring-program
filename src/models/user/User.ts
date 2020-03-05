@@ -1,6 +1,6 @@
-import { Model, DataTypes, UUIDV4 } from 'sequelize';
+import { Model, Association, DataTypes, UUIDV4 } from 'sequelize';
 
-import { sequelize } from './sequelize';
+import { sequelize } from '../sequelize';
 
 export class User extends Model {
     id!: string;
@@ -8,6 +8,16 @@ export class User extends Model {
     login!: string;
     password!: string;
     isDeleted!: boolean;
+
+    static association: Association;
+
+    static associate(models) {
+        this.association = models.User.belongsToMany(models.Group, {
+            through: models.UserGroup,
+            as: 'groups',
+            foreignKey: 'userId'
+        });
+    }
 }
 
 User.init({

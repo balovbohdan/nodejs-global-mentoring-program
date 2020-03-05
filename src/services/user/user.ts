@@ -1,8 +1,11 @@
-import * as md5 from 'md5';
+import { omit } from 'ramda';
 
-import { User } from '#models';
+import { User, Group } from '#models';
+import * as modelsUtils from '#models/utils';
+import userGroupService from '#services/user-group';
 
 import * as T from './types';
+import * as utils from './utils';
 
 export const get = async (id: string): Promise<T.User|null> => {
     const user = await User.findOne({
@@ -10,20 +13,27 @@ export const get = async (id: string): Promise<T.User|null> => {
             id,
             isDeleted: false
         },
-        raw: true
-    }) as T.UserRaw|null;
+        include: [{
+            model: Group,
+            as: 'groups',
+            required: false,
+            attributes: ['id', 'name', 'permissions'],
+            through: { attributes: [] }
+        }]
+    });
 
-    return user ? {
-        id: user.id,
-        age: user.age,
-        login: user.login
-    } : null;
+    if (!user) {
+        return null;
+    }
+
+    const userRaw = user.get({ plain: true }) as T.UserRaw;
+
+    return omit(['password', 'isDeleted', 'createdAt', 'updatedAt'], userRaw);
 };
 
 export const create = async (user: T.CreateUserInput): Promise<string> => {
-    const userPrepared = Object.assign({}, user, {
-        password: md5(user.password)
-    });
+    const password = await utils.getPasswordHash(user.password);
+    const userPrepared = { ...user, password };
     const { id } = await User.create(userPrepared);
 
     return id;
@@ -41,8 +51,12 @@ export const del = async (id: string): Promise<void> => {
         throw new Error(`Failed to delete user ${id}.`);
     }
 
-    await user.update({
-        isDeleted: true
+    await modelsUtils.createTransaction(async (transaction) => {
+        await user.update({ isDeleted: true }, { transaction });
+
+        await userGroupService.del({
+            where: { userId: id }
+        }, transaction);
     });
 };
 
@@ -55,18 +69,20 @@ export const update = async (user: T.UpdateUserInput): Promise<T.User> => {
     });
 
     if (!userInDb) {
-        throw new Error(`Failed to update user ${user.id}.`);
+        throw new Error(`Failed to update user "${user.id}".`);
     }
 
     const userUpdated = {
         age: user.age || userInDb.age,
         login: user.login || userInDb.login,
         password: user.password
-            ? md5(user.password)
+            ? await utils.getPasswordHash(user.password)
             : userInDb.password
     };
 
-    await userInDb.update(userUpdated);
+    await userInDb.update(userUpdated, {
+
+    });
 
     return {
         id: userInDb.id,

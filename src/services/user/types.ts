@@ -1,3 +1,11 @@
+import { Permission } from '#models/group/types';
+
+type Group = {
+    id: string;
+    name: string;
+    permissions: Permission[];
+};
+
 export type UpdateUserInput = {
     id: string;
     age?: number;
@@ -20,4 +28,5 @@ export type User = {
     id: string;
     age: number;
     login: string;
+    groups?: Group[];
 };
