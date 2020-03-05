@@ -33,20 +33,16 @@ export const del = async (id: string): Promise<void> => {
     const exists = checkExists(id);
 
     if (exists) {
-        const transaction = await modelsUtils.createTransaction();
+        await modelsUtils.createTransaction(async (transaction) => {
+            await Group.destroy({
+                transaction,
+                where: { id }
+            });
 
-        await Group.destroy({
-            transaction,
-            where: { id }
+            await userGroupService.del({
+                where: {  groupId: id }
+            }, transaction);
         });
-
-        await userGroupService.del({
-            where: {
-                groupId: id
-            }
-        }, transaction);
-
-        await transaction.commit();
     }
 };
 

@@ -51,19 +51,13 @@ export const del = async (id: string): Promise<void> => {
         throw new Error(`Failed to delete user ${id}.`);
     }
 
-    const transaction = await modelsUtils.createTransaction();
+    await modelsUtils.createTransaction(async (transaction) => {
+        await user.update({ isDeleted: true }, { transaction });
 
-    await user.update({
-        isDeleted: true
-    }, { transaction });
-
-    await userGroupService.del({
-        where: {
-            userId: id
-        }
-    }, transaction);
-
-    await transaction.commit();
+        await userGroupService.del({
+            where: { userId: id }
+        }, transaction);
+    });
 };
 
 export const update = async (user: T.UpdateUserInput): Promise<T.User> => {
