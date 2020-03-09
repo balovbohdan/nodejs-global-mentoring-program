@@ -18,17 +18,17 @@ curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT
 
 **Get user**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:3000/user/<id>
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" http://localhost:3000/user/<id>
 ```
 
 **Get auto-suggested users**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"limit":10,"loginSubstring":"login"}' http://localhost:3000/auto-suggested-users
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" --data '{"limit":10,"loginSubstring":"login"}' http://localhost:3000/auto-suggested-users
 ```
 
 **Update user**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/user
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" --data '{<...>}' http://localhost:3000/user
 ```
 
 **Delete user**
@@ -39,27 +39,27 @@ curl -X DELETE -H "Content-Type: application/json" -H "Authorization: <jwt_token
 ## Group(s)
 **Create group**
 ```bash
-curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"name":"test_group","permissions":["READ"]}' http://localhost:3000/group
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" -X PUT --data '{"name":"test_group","permissions":["READ"]}' http://localhost:3000/group
 ```
 
 **Get group**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:3000/group/<id>
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" http://localhost:3000/group/<id>
 ```
 
 **Get groups**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{"limit":10}' http://localhost:3000/groups
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" --data '{"limit":10}' http://localhost:3000/groups
 ```
 
 **Update group**
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data '{<...>}' http://localhost:3000/group
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" --data '{<...>}' http://localhost:3000/group
 ```
 
 **Delete group**
 ```bash
-curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/group/<id>
+curl -X DELETE -H "Content-Type: application/json" -H "Authorization: <jwt_token>" http://localhost:3000/group/<id>
 ```
 
 ## User Group
@@ -67,7 +67,7 @@ curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/group/<
 <br>
 _Default groups:_ USER, ADMIN
 ```bash
-curl -v -H "Accept: application/json" -H "Content-Type: application/json" -X PUT --data '{"userIds":["ba9e8fd2-7cc9-4eb9-9aad-e33069efbecf","ba9e8fd2-7cc9-4eb9-9aad-e33069efbeca"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
+curl -v -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: <jwt_token>" -X PUT --data '{"userIds":["ba9e8fd2-7cc9-4eb9-9aad-e33069efbecf","ba9e8fd2-7cc9-4eb9-9aad-e33069efbeca"],"group":"ADMIN"}' http://localhost:3000/user-group/add-users
 ```
 
 ## Authorization
