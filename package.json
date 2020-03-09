@@ -43,6 +43,7 @@
     "@hapi/joi": "^16.1.8",
     "bcrypt": "^3.0.7",
     "bunyan": "^1.8.12",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-joi-validation": "^4.0.3",
     "jwt-simple": "^0.5.6",
