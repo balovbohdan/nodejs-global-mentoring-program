@@ -45,7 +45,6 @@
     "bunyan": "^1.8.12",
     "express": "^4.17.1",
     "express-joi-validation": "^4.0.3",
-    "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
     "morgan": "^1.9.1",
     "pg": "^7.17.1",
