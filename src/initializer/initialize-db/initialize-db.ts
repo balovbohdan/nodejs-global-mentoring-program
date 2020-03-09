@@ -61,21 +61,12 @@ const createDefaultGroups = async () => {
     ]);
 };
 
-const initializeDB = async () => {
+export const initializeDb = async () => {
     await syncTables();
     associateTables();
     await Promise.all([
         createDefaultUsers(),
         createDefaultGroups()
     ]);
-};
-
-export const initializeDb = () => {
-    initializeDB()
-        .then(() => {
-            console.log('DB was initialized.');
-        })
-        .catch((error) => {
-            loggers.dbLogger.fatal(error.message);
-        });
+    console.log('DB was initialized');
 };
