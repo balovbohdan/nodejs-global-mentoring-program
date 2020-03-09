@@ -1,5 +1,6 @@
 import loggers from '#loggers';
 import userService from '#services/user';
+import * as middlewares from '#routers/middlewares';
 
 import * as T from './types';
 import validator from './validator';
@@ -29,6 +30,7 @@ const handle = async (req, res, next) => {
 };
 
 export const update = [
+    middlewares.auth,
     validator,
     handle
 ];

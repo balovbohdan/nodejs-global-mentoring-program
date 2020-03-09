@@ -33,7 +33,7 @@ curl -i -H "Accept: application/json" -H "Content-Type: application/json" --data
 
 **Delete user**
 ```bash
-curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/user/<id>
+curl -X DELETE -H "Content-Type: application/json" -H "Authorization: <jwt_token>" http://localhost:3000/user/<id>
 ```
 
 ## Group(s)
