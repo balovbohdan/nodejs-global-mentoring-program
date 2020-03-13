@@ -12,12 +12,6 @@ const handle = async (req, res, next) => {
 
         res.end();
     } catch (error) {
-        loggers.routersLogger.error({
-            method: 'userService.del',
-            message: error.message,
-            args: { id }
-        });
-
         return next(error);
     }
 };

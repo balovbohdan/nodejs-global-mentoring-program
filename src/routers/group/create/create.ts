@@ -12,12 +12,6 @@ const handle = async (req, res, next) => {
 
         res.send({ groupId });
     } catch (error) {
-        loggers.routersLogger.error({
-            method: groupService.create,
-            message: error.message,
-            args: { name, permissions }
-        });
-
         return next(error);
     }
 };

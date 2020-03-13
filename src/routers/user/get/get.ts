@@ -12,12 +12,6 @@ const handle = async (req, res, next) => {
 
         res.send(user);
     } catch (error) {
-        loggers.routersLogger.error({
-            method: 'userService.get',
-            message: error.message,
-            args: { id }
-        });
-
         return next(error);
     }
 };

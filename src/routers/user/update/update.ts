@@ -18,12 +18,6 @@ const handle = async (req, res, next) => {
 
         res.send(userUpdated);
     } catch (error) {
-        loggers.routersLogger.error({
-            method: 'userService.update',
-            message: error.message,
-            args: { id, age, login, password }
-        });
-
         return next(error);
     }
 };
