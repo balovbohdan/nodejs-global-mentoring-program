@@ -4,25 +4,14 @@ import usersService from '#services/users';
 import * as T from './types';
 import validator from './validator';
 
-const handle = async (req, res, next) => {
+const handle = async (req, res) => {
     const { limit, loginSubstring }: T.Body = req.body;
+    const users = await usersService.getAutoSuggested({
+        limit,
+        loginSubstring
+    });
 
-    try {
-        const users = await usersService.getAutoSuggested({
-            limit,
-            loginSubstring
-        });
-
-        res.send(users);
-    } catch (error) {
-        loggers.routersLogger.error({
-            method: 'usersService.getAutoSuggested',
-            message: error.message,
-            args: { limit, loginSubstring }
-        });
-
-        return next(error);
-    }
+    res.send(users);
 };
 
 export const getAutoSuggested = [

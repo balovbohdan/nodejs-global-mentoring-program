@@ -6,20 +6,9 @@ import validator from './validator';
 
 const handle = async (req, res, next) => {
     const { id, name, permissions }: T.Body = req.body;
+    const groupUpdated = await groupService.update({ id, name, permissions });
 
-    try {
-        const groupUpdated = await groupService.update({ id, name, permissions });
-
-        res.send(groupUpdated);
-    } catch (error) {
-        loggers.routersLogger.error({
-            method: 'groupService.update',
-            message: error.message,
-            args: { id, name, permissions }
-        });
-
-        return next(error);
-    }
+    res.send(groupUpdated);
 };
 
 export const update = [
