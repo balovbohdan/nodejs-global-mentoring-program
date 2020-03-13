@@ -1,13 +1,13 @@
 import { Express } from 'express';
 
-import setLogger from './set-logger';
+import setErrorHandlers from './set-error-handlers';
 import setSystemHandlers from './set-system-handlers';
 import setEndpointHandlers from './set-endpoint-handlers';
 
 const setHandlers = (app: Express) => {
-    setLogger(app);
     setSystemHandlers(app);
     setEndpointHandlers(app);
+    setErrorHandlers(app);
 };
 
 export default setHandlers;

@@ -1,4 +1,3 @@
-import loggers from '#loggers';
 import userService from '#services/user';
 
 import * as T from './types';
@@ -9,6 +8,7 @@ const handle = async (req, res, next) => {
 
     try {
         const userId = await userService.create({ age, login, password });
+        throw new Error('Test error');
 
         res.send({ userId });
     } catch (error) {

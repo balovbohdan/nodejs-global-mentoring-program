@@ -1,4 +1,3 @@
-import loggers from '#loggers';
 import groupService from '#services/group';
 
 import * as T from './types';
