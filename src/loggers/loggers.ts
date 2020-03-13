@@ -6,6 +6,10 @@ export const dbLogger = bunyan.createLogger({
     name: 'dbLogger'
 });
 
+export const consoleLogger = bunyan.createLogger({
+    name: 'consoleLogger'
+});
+
 export const routersLogger = bunyan.createLogger({
     name: 'routersLogger',
     streams: [{

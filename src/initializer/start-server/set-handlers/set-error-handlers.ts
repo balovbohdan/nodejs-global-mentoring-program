@@ -9,7 +9,9 @@ const log = ({ url, body, query, params }) => {
             .join(', ');
 
         if (payloadSerialized) {
-            console.log(`Error on "${url}" happened. Payload: { ${payloadSerialized} }`);
+            loggers.consoleLogger.info(
+                `Error on "${url}" happened. Payload: { ${payloadSerialized} }`
+            );
         }
     });
 };
