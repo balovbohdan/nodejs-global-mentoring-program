@@ -4,13 +4,24 @@ import groupService from '#services/group';
 import * as T from './types';
 import validator from './validator';
 
-const handle = async (req, res) => {
+const handle = async (req, res, next) => {
     const { id }: T.Params = req.params;
-    const group = await groupService.get({
-        where: { id }
-    });
 
-    res.send(group);
+    try {
+        const group = await groupService.get({
+            where: { id }
+        });
+
+        res.send(group);
+    } catch (error) {
+        loggers.routersLogger.error({
+            method: 'groupService.get',
+            message: error.message,
+            args: { id }
+        });
+
+        return next(error);
+    }
 };
 
 export const get = [

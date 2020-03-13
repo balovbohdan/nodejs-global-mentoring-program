@@ -4,12 +4,22 @@ import userService from '#services/user';
 import * as T from './types';
 import validator from './validator';
 
-const handle = async (req, res) => {
+const handle = async (req, res, next) => {
     const { id }: T.Params = req.params;
 
-    await userService.del(id);
+    try {
+        await userService.del(id);
 
-    res.end();
+        res.end();
+    } catch (error) {
+        loggers.routersLogger.error({
+            method: 'userService.del',
+            message: error.message,
+            args: { id }
+        });
+
+        return next(error);
+    }
 };
 
 export const del = [
