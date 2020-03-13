@@ -8,7 +8,6 @@ const handle = async (req, res, next) => {
 
     try {
         const userId = await userService.create({ age, login, password });
-        throw new Error('Test error');
 
         res.send({ userId });
     } catch (error) {
