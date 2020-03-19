@@ -80,9 +80,7 @@ export const update = async (user: T.UpdateUserInput): Promise<T.User> => {
             : userInDb.password
     };
 
-    await userInDb.update(userUpdated, {
-
-    });
+    await userInDb.update(userUpdated);
 
     return {
         id: userInDb.id,
