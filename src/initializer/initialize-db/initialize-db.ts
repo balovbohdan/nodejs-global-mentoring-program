@@ -4,7 +4,7 @@ import * as models from '#models';
 import { CustomModel } from '#models/types';
 import * as groupConstants from '#models/group/constants';
 
-export const initializeModels = () => {
+const initializeModels = () => {
     const modelClasses = Object.values(models) as CustomModel[];
 
     modelClasses.forEach((model) => {
