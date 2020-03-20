@@ -1,6 +1,6 @@
 import { Model, Association, DataTypes, UUIDV4 } from 'sequelize';
 
-import { sequelize } from '../sequelize';
+import { getSequelize } from '../sequelize';
 
 export class User extends Model {
     id!: string;
@@ -18,34 +18,36 @@ export class User extends Model {
             foreignKey: 'userId'
         });
     }
-}
 
-User.init({
-    id: {
-        allowNull: false,
-        primaryKey: true,
-        defaultValue: UUIDV4,
-        type: DataTypes.UUID
-    },
-    age: {
-        allowNull: true,
-        defaultValue: null,
-        type: DataTypes.DECIMAL
-    },
-    login: {
-        allowNull: false,
-        type: DataTypes.STRING
-    },
-    password: {
-        allowNull: false,
-        type: DataTypes.STRING
-    },
-    isDeleted: {
-        allowNull: false,
-        defaultValue: false,
-        type: DataTypes.BOOLEAN
+    static initialize() {
+        User.init({
+            id: {
+                allowNull: false,
+                primaryKey: true,
+                defaultValue: UUIDV4,
+                type: DataTypes.UUID
+            },
+            age: {
+                allowNull: true,
+                defaultValue: null,
+                type: DataTypes.DECIMAL
+            },
+            login: {
+                allowNull: false,
+                type: DataTypes.STRING
+            },
+            password: {
+                allowNull: false,
+                type: DataTypes.STRING
+            },
+            isDeleted: {
+                allowNull: false,
+                defaultValue: false,
+                type: DataTypes.BOOLEAN
+            }
+        }, {
+            sequelize: getSequelize(),
+            modelName: 'user'
+        });
     }
-}, {
-    sequelize,
-    modelName: 'user'
-});
+}

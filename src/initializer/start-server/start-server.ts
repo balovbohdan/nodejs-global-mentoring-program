@@ -8,5 +8,5 @@ export const startServer = () => {
     const app = express();
 
     setHandlers(app);
-    app.listen(config.server.port);
+    app.listen(process.env.SERVER_PORT);
 };

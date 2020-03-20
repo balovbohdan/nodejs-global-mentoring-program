@@ -4,6 +4,16 @@ import * as models from '#models';
 import { CustomModel } from '#models/types';
 import * as groupConstants from '#models/group/constants';
 
+export const initializeModels = () => {
+    const modelClasses = Object.values(models) as CustomModel[];
+
+    modelClasses.forEach((model) => {
+        if (typeof model.initialize === 'function') {
+            model.initialize();
+        }
+    });
+};
+
 const associateTables = () => {
     const modelClasses = Object.values(models) as CustomModel[];
 
@@ -58,6 +68,7 @@ const createDefaultGroups = async () => {
 };
 
 export const initializeDb = async () => {
+    initializeModels();
     await syncTables();
     associateTables();
     await Promise.all([

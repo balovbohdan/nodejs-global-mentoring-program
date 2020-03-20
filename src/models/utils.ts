@@ -1,6 +1,6 @@
 import * as T from './types';
-import { sequelize } from './sequelize';
+import { getSequelize } from './sequelize';
 
 export const createTransaction = <Response>(callback: T.CreateTransactionCallback<Response>): Promise<Response> => (
-    sequelize.transaction<Response>(callback)
+    getSequelize().transaction<Response>(callback)
 );

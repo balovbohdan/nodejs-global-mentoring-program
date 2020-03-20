@@ -1,5 +1,11 @@
 import { Sequelize } from 'sequelize';
 
-import { config } from '#config';
+let sequelize: Sequelize|null = null;
 
-export const sequelize = new Sequelize(config.model.postgresql.uri);
+export const getSequelize = (): Sequelize => {
+    if (!sequelize) {
+        sequelize = new Sequelize(process.env.POSTGRESQL_URI as string);
+    }
+
+    return sequelize as Sequelize;
+};
