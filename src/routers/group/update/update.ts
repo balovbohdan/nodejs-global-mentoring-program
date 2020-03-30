@@ -4,8 +4,9 @@ import * as T from './types';
 import validator from './validator';
 
 const handle = async (req, res, next) => {
+    const { id, name, permissions }: T.Body = req.body;
+
     try {
-        const { id, name, permissions }: T.Body = req.body;
         const groupUpdated = await groupService.update({ id, name, permissions });
 
         res.send(groupUpdated);

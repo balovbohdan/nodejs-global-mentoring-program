@@ -1,15 +1,14 @@
-import * as express from 'express';
+import * as express from 'express'
+import * as responseTime from 'response-time';
+
+import loggers from '#loggers';
 
 const setSystemHandlers = (app: express.Express) => {
-    app.use(express.json());
+    app.use(responseTime((req, res, time) => {
+        loggers.consoleLogger.info(`Req '${req.url}' took '${time}' milliseconds.`);
+    }));
 
-    app.use((err, req, res, next) => {
-        if (err) {
-            res.status(500).end();
-        } else {
-            return next();
-        }
-    });
+    app.use(express.json());
 };
 
 export default setSystemHandlers;
