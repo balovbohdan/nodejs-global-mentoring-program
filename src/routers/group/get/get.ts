@@ -1,4 +1,3 @@
-import loggers from '#loggers';
 import groupService from '#services/group';
 import * as middlewares from '#routers/middlewares';
 
@@ -15,12 +14,6 @@ const handle = async (req, res, next) => {
 
         res.send(group);
     } catch (error) {
-        loggers.routersLogger.error({
-            method: 'groupService.get',
-            message: error.message,
-            args: { id }
-        });
-
         return next(error);
     }
 };
