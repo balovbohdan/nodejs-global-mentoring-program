@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 
+import loggers from '#loggers';
 import * as models from '#models';
 import { CustomModel } from '#models/types';
 import * as groupConstants from '#models/group/constants';

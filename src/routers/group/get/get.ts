@@ -4,8 +4,9 @@ import * as T from './types';
 import validator from './validator';
 
 const handle = async (req, res, next) => {
+    const { id }: T.Params = req.params;
+
     try {
-        const { id }: T.Params = req.params;
         const group = await groupService.get({
             where: { id }
         });

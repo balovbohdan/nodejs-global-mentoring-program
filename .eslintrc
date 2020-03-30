@@ -322,7 +322,8 @@
       7
     ],
     "no-bitwise": 2,
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/ban-ts-ignore": "off"
   },
   "globals": {
     "$": true,
