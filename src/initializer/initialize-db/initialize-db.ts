@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 
 import loggers from '#loggers';
+import * as userUtils from '#services/user/utils';
 import * as models from '#models';
 import { CustomModel } from '#models/types';
 import * as groupConstants from '#models/group/constants';
@@ -39,13 +40,15 @@ const createDefaultUsers = async () => {
             id: v4(),
             isDeleted: false,
             login: 'new_login',
-            password: 'password111'
+            password: 'password111',
+            passwordSalt: await userUtils.genPasswordSalt()
         },
         {
             id: v4(),
             isDeleted: false,
             login: 'login',
             password: 'password222',
+            passwordSalt: await userUtils.genPasswordSalt(),
             age: 10
         }
     ]);
