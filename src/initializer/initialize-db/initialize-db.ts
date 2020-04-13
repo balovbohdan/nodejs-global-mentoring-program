@@ -1,6 +1,5 @@
 import { v4 } from 'uuid';
 
-import loggers from '#loggers';
 import * as userUtils from '#services/user/utils';
 import * as models from '#models';
 import { CustomModel } from '#models/types';
