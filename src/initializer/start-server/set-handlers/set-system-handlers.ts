@@ -1,3 +1,4 @@
+import * as cors from 'cors';
 import * as express from 'express'
 import * as responseTime from 'response-time';
 
@@ -8,6 +9,7 @@ const setSystemHandlers = (app: express.Express) => {
         loggers.consoleLogger.info(`Req '${req.url}' took '${time}' milliseconds.`);
     }));
 
+    app.use(cors());
     app.use(express.json());
 };
 

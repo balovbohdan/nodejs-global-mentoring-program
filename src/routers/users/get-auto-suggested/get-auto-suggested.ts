@@ -1,4 +1,5 @@
 import usersService from '#services/users';
+import * as middlewares from '#routers/middlewares';
 
 import * as T from './types';
 import validator from './validator';
@@ -19,6 +20,7 @@ const handle = async (req, res, next) => {
 };
 
 export const getAutoSuggested = [
+    middlewares.auth,
     validator,
     handle
 ];

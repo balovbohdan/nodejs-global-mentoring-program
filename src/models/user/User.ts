@@ -7,6 +7,7 @@ export class User extends Model {
     age!: number;
     login!: string;
     password!: string;
+    passwordSalt!: string;
     isDeleted!: boolean;
 
     static association: Association;
@@ -37,6 +38,10 @@ User.init({
         type: DataTypes.STRING
     },
     password: {
+        allowNull: false,
+        type: DataTypes.STRING
+    },
+    passwordSalt: {
         allowNull: false,
         type: DataTypes.STRING
     },

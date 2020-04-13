@@ -6,6 +6,11 @@ type Group = {
     permissions: Permission[];
 };
 
+export type VerifyUserInput = {
+    login: string;
+    password: string;
+};
+
 export type UpdateUserInput = {
     id: string;
     age?: number;
@@ -21,6 +26,7 @@ export type CreateUserInput = {
 
 export type UserRaw = User & {
     password: string;
+    passwordHash: string;
     isDeleted: boolean;
 }
 
@@ -29,4 +35,10 @@ export type User = {
     age: number;
     login: string;
     groups?: Group[];
+};
+
+export type VerifyPasswordInput = {
+    passwordSalt: string;
+    passwordHash: string;
+    passwordToVerify: string;
 };
