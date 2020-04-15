@@ -1,7 +1,6 @@
 import { v4 } from 'uuid';
 
 import { Group } from '#models';
-import * as groupConstants from '#models/group/constants';
 
 import groupService from '.';
 
