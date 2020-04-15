@@ -45,6 +45,8 @@ describe('groupService', () => {
                     id: v4()
                 }
             });
+
+            expect(group).toBeNull();
         });
     });
 
