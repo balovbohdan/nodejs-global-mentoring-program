@@ -57,6 +57,7 @@ describe('groupService', () => {
             });
 
             expect(typeof groupId).toBe('string');
+            expect(Group.create).toBeCalledTimes(1);
         });
     });
 
@@ -64,7 +65,7 @@ describe('groupService', () => {
         it('should return object of updated group', async () => {
             const updatedGroup = await groupService.update({
                 id: v4(),
-                name: 'udatedTestGroup',
+                name: 'updatedTestGroup',
                 permissions: ['READ']
             });
 
