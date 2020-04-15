@@ -83,7 +83,7 @@ describe('groupService', () => {
             });
 
             expect(response).rejects.toThrow(Error);
-            expect(response).rejects.toThrow(`Failed to update group "${id}".`);
+            expect(response).rejects.toThrow('Failed to find updated group.');
         });
     });
 });
