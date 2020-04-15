@@ -67,8 +67,9 @@ describe('groupService', () => {
 
     describe('update()', () => {
         it('should return object of updated group', async () => {
+            const id = v4();
             const updatedGroup = await groupService.update({
-                id: v4(),
+                id,
                 name: 'updatedTestGroup',
                 permissions: ['READ']
             });
