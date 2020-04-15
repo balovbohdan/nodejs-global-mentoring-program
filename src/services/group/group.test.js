@@ -20,6 +20,8 @@ Group.create.mockReturnValue(
     })
 );
 
+Group.update.mockResolvedValueOnce(null);
+
 beforeEach(() => {
     Group.mockReset();
 });
@@ -34,6 +36,7 @@ describe('groupService', () => {
             });
 
             expect(typeof group).toBe('object');
+            expect(Group.findOne).toBeCalledTimes(1);
         });
 
         it('should return null if group not found', async () => {
@@ -46,6 +49,7 @@ describe('groupService', () => {
             });
 
             expect(group).toBeNull();
+            expect(Group.findOne).toBeCalledTimes(1);
         });
     });
 
@@ -70,6 +74,7 @@ describe('groupService', () => {
             });
 
             expect(typeof updatedGroup).toBe('object');
+            expect(Group.update).toBeCalledTimes(1);
         });
 
         it('should throw error if group not found', async () => {
@@ -84,6 +89,7 @@ describe('groupService', () => {
 
             expect(response).rejects.toThrow(Error);
             expect(response).rejects.toThrow('Failed to find updated group.');
+            expect(Group.update).toBeCalledTimes(1);
         });
     });
 });
