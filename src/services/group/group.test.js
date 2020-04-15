@@ -75,6 +75,7 @@ describe('groupService', () => {
 
             expect(typeof updatedGroup).toBe('object');
             expect(Group.update).toBeCalledTimes(1);
+            expect(Group.findOne).toBeCalledTimes(1);
         });
 
         it('should throw error if group not found', async () => {
