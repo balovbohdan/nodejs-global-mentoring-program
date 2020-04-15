@@ -13,23 +13,16 @@ const defaultUser = {
     password: 'veryStrongPassword1111',
     isDeleted: false
 };
+const userInstance = {
+    ...defaultUser,
+    get() {
+        return defaultUser;
+    },
+    async update() {}
+};
 
-User.findOne.mockReturnValue(
-    Promise.resolve({
-        ...defaultUser,
-        async get() {
-            return defaultUser;
-        },
-        async update() {}
-    })
-);
-
-User.create.mockReturnValue(
-    Promise.resolve({
-        id: v4()
-    })
-);
-
+User.findOne.mockReturnValue(Promise.resolve(userInstance));
+User.create.mockReturnValue(Promise.resolve({ id: v4() }));
 User.update.mockReturnValue(Promise.resolve(defaultUser));
 
 beforeEach(() => {
@@ -42,7 +35,10 @@ describe('userService', () => {
             const userId = v4();
             const user = await userService.get(userId);
 
-            expect(typeof user).toBe('object');
+            expect(user.id).toBe(defaultUser.id);
+            expect(user.age).toBe(defaultUser.age);
+            expect(user.login).toBe(defaultUser.login);
+            expect(User.findOne).toBeCalledTimes(1);
         });
 
         it('should return null if user not found', async () => {
@@ -51,7 +47,8 @@ describe('userService', () => {
             const userId = v4();
             const user = await userService.get(userId);
 
-            expect(user).toBe(null);
+            expect(user).toBeNull();
+            expect(User.findOne).toBeCalledTimes(1);
         });
     });
 
@@ -64,6 +61,7 @@ describe('userService', () => {
             });
 
             expect(typeof userId).toBe('string');
+            expect(User.create).toBeCalledTimes(1);
         });
     });
 
@@ -76,6 +74,8 @@ describe('userService', () => {
 
             expect(response).rejects.toThrow(Error);
             expect(response).rejects.toThrow(`Failed to delete user ${userId}.`);
+            expect(User.findOne).toBeCalledTimes(1);
+            expect(User.update).toBeCalledTimes(0);
         });
     });
 
@@ -88,7 +88,9 @@ describe('userService', () => {
                 password: 'veryStrongPassword1111'
             });
 
-            expect(typeof updatedUser).toBe('object');
+            expect(updatedUser.age).toBe(25);
+            expect(updatedUser.login).toBe('example@example.com');
+            expect(User.findOne).toBeCalledTimes(1);
         });
 
         it('should throw error if user not found', async () => {
@@ -104,6 +106,8 @@ describe('userService', () => {
 
             expect(response).rejects.toThrow(Error);
             expect(response).rejects.toThrow(`Failed to update user "${id}".`);
+            expect(User.update).toBeCalledTimes(0);
+            expect(User.findOne).toBeCalledTimes(1);
         });
     });
 });
