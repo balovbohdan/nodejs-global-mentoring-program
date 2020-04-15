@@ -75,13 +75,15 @@ describe('groupService', () => {
         it('should throw error if group not found', async () => {
             Group.findOne.mockReturnValueOnce(Promise.resolve(null));
 
+            const id = v4();
             const response = groupService.update({
-                id: v4(),
+                id,
                 name: 'updatedTestGroup',
                 permissions: ['READ']
             });
 
             expect(response).rejects.toThrow(Error);
+            expect(response).rejects.toThrow(`Failed to update group "${id}".`);
         });
     });
 });

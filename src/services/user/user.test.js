@@ -75,6 +75,7 @@ describe('userService', () => {
             const response = userService.del(userId);
 
             expect(response).rejects.toThrow(Error);
+            expect(response).rejects.toThrow(`Failed to delete user ${userId}.`);
         });
     });
 
@@ -93,14 +94,16 @@ describe('userService', () => {
         it('should throw error if user not found', async () => {
             User.findOne.mockReturnValueOnce(Promise.resolve(null));
 
+            const id = v4();
             const response = userService.update({
-                id: v4(),
+                id,
                 age: 25,
                 login: 'example@example.com',
                 password: 'veryStrongPassword1111'
             });
 
             expect(response).rejects.toThrow(Error);
+            expect(response).rejects.toThrow(`Failed to update user "${id}".`);
         });
     });
 });
