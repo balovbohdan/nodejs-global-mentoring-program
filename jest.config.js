@@ -82,6 +82,7 @@ module.exports = {
   moduleNameMapper: {
       "#models": "<rootDir>/src/models",
       "#config": "<rootDir>/src/config",
+      "#loggers": "<rootDir>/src/loggers",
       "#services/(.*)": "<rootDir>/src/services/$1"
   },
 
