@@ -1,7 +1,7 @@
 import { Model, Association, DataTypes, UUIDV4 } from 'sequelize';
 
 import * as T from './types';
-import { sequelize } from '../sequelize';
+import { getSequelize } from '../sequelize';
 
 export class Group extends Model {
     id!: string;
@@ -17,24 +17,26 @@ export class Group extends Model {
             foreignKey: 'groupId'
         });
     }
-}
 
-Group.init({
-    id: {
-        allowNull: false,
-        primaryKey: true,
-        defaultValue: UUIDV4,
-        type: DataTypes.UUID
-    },
-    name: {
-        allowNull: false,
-        type: DataTypes.STRING
-    },
-    permissions: {
-        allowNull: false,
-        type: DataTypes.ARRAY(DataTypes.STRING)
+    static initialize() {
+        Group.init({
+            id: {
+                allowNull: false,
+                primaryKey: true,
+                defaultValue: UUIDV4,
+                type: DataTypes.UUID
+            },
+            name: {
+                allowNull: false,
+                type: DataTypes.STRING
+            },
+            permissions: {
+                allowNull: false,
+                type: DataTypes.ARRAY(DataTypes.STRING)
+            }
+        }, {
+            sequelize: getSequelize(),
+            modelName: 'group'
+        });
     }
-}, {
-    sequelize,
-    modelName: 'group'
-});
+}

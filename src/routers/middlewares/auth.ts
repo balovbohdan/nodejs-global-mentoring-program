@@ -1,7 +1,6 @@
 import * as jwt from 'jwt-simple';
 
 import { config } from '#config';
-import userService from '#services/user';
 
 import * as constants from './constants';
 
