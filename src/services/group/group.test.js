@@ -4,7 +4,12 @@ import { Group } from '#models';
 
 import groupService from '.';
 
+const mockedId = 'mockedV4uuid';
+
 jest.mock('#models/group/Group');
+jest.mock('uuid', () => ({
+    v4: () => 'mockedV4uuid',
+}));
 
 const defaultGroup = {
     id: v4(),
@@ -55,7 +60,7 @@ describe('groupService', () => {
                 permissions: ['READ', 'WRITE']
             });
 
-            expect(typeof groupId).toBe('string');
+            expect(groupId).toBe(mockedId);
             expect(Group.create).toBeCalledTimes(1);
         });
     });

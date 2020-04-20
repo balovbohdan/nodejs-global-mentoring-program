@@ -4,7 +4,12 @@ import { User } from '#models';
 
 import userService from '.';
 
+const mockedId = 'mockedV4uuid';
+
 jest.mock('#models/user/User');
+jest.mock('uuid', () => ({
+    v4: () => 'mockedV4uuid',
+}));
 
 const defaultUser = {
     id: v4(),
@@ -60,7 +65,7 @@ describe('userService', () => {
                 password: 'veryStrongPassword1111',
             });
 
-            expect(typeof userId).toBe('string');
+            expect(userId).toBe(mockedId);
             expect(User.create).toBeCalledTimes(1);
         });
     });
